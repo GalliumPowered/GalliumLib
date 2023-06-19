@@ -128,7 +128,6 @@ public class Database {
      * Get a player's group
      * @param player the player
      * @return player's group
-     * @throws SQLException
      */
     public Optional<Group> getPlayerGroup(Player player) {
         log.debug("getting player group");
