@@ -1,18 +1,11 @@
-package net.zenoc.gallium.event;
+package net.zenoc.gallium.eventsys;
+
+import net.zenoc.gallium.api.event.Event;
 
 public interface EventDispatcher {
     /**
-     * Fire a ServerStartEvent
+     * Call an event
+     * @param event
      */
-    void fireServerStart();
-
-    /**
-     * Fire a player join event
-     */
-    void firePlayerJoin();
-
-    /**
-     * Fire a player disconnect event
-     */
-    void firePlayerDisconnect();
+    void callEvent(Event event);
 }

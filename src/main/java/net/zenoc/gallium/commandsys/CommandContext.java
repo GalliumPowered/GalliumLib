@@ -1,4 +1,4 @@
-package net.zenoc.gallium.command;
+package net.zenoc.gallium.commandsys;
 
 import net.zenoc.gallium.Gallium;
 
@@ -9,7 +9,9 @@ public interface CommandContext {
     CommandCaller getCaller();
 
     /**
-     * Get gallium
+     * Command arguments
+     *
+     * @return Command arguments
      */
-    Gallium getGallium();
+    String[] getCommandArgs();
 }

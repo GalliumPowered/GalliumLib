@@ -1,7 +1,5 @@
-package net.zenoc.gallium.event.system;
+package net.zenoc.gallium.api.event.system;
 
-import net.zenoc.gallium.event.EventBase;
-
-public abstract class ServerStartEvent extends SystemEvent {
-
+public class ServerStartEvent extends SystemEvent {
+    public ServerStartEvent() {}
 }

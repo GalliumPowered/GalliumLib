@@ -1,3 +1,11 @@
 package net.zenoc.gallium.exceptions;
 
-public class NotYetImplementedException {
+public class NotYetImplementedException extends RuntimeException {
+    public NotYetImplementedException() {
+        super();
+    }
+
+    public NotYetImplementedException(String msg) {
+        super(msg);
+    }
+}

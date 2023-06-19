@@ -1,4 +1,4 @@
-package net.zenoc.gallium.command;
+package net.zenoc.gallium.commandsys;
 
 public enum CommandCallerType {
     CONSOLE,

@@ -1,14 +1,13 @@
-package net.zenoc.gallium.event;
+package net.zenoc.gallium.eventsys;
 
 import com.google.common.collect.ArrayListMultimap;
-import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.annotations.EventListener;
+import net.zenoc.gallium.api.event.Event;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public class EventManager {
-    public ArrayListMultimap<Class<? extends EventBase>, MListener> listeners = ArrayListMultimap.create();
+    public ArrayListMultimap<Class<? extends Event>, MListener> listeners = ArrayListMultimap.create();
 
     public EventManager() {
 
@@ -24,7 +23,7 @@ public class EventManager {
                 });
     }
     private void internalRegister(Class<?> hookClass, MListener listener) {
-        listeners.put((Class<? extends EventBase>) hookClass, listener);
+        listeners.put((Class<? extends Event>) hookClass, listener);
     }
 
 }

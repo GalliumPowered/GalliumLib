@@ -1,38 +1,60 @@
-package net.zenoc.gallium.galliumlib.plugin;
+package net.zenoc.gallium.plugin;
 
-import net.zenoc.gallium.galliumlib.Gallium;
-import net.zenoc.gallium.galliumlib.exceptions.PluginLoadFailException;
+import net.zenoc.gallium.Gallium;
+import net.zenoc.gallium.exceptions.PluginLoadFailException;
+
+import javax.annotation.Nonnull;
 
 public abstract class Plugin {
-    Gallium gallium;
     String name;
+    String id;
     String description;
     String[] authors;
     String version;
-    public Plugin(Gallium gallium, String name, String description, String[] authors, String version) {
-        this.gallium = gallium;
+    public Plugin(@Nonnull String name, @Nonnull String id, String description, String[] authors, String version) {
         this.name = name;
+        this.id = id;
         this.description = description;
         this.authors = authors;
         this.version = version;
     }
 
-    public Gallium getGallium() {
-        return gallium;
-    }
-
+    /**
+     * The name of the plugin
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * The ID of the plugin
+     * @return the ID
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * The plugin's description
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * The plugin authors
+     * @return the authors
+     */
     public String[] getAuthors() {
         return authors;
     }
 
+    /**
+     * The plugin's version
+     * @return the version
+     */
     public String getVersion() {
         return version;
     }
@@ -46,4 +68,5 @@ public abstract class Plugin {
      * Called by server to unload the plugin
      */
     public abstract void unload();
+
 }

@@ -1,7 +1,6 @@
-package net.zenoc.gallium.event;
+package net.zenoc.gallium.eventsys;
 
 import net.zenoc.gallium.api.annotations.EventListener;
-import net.zenoc.gallium.api.annotations.MinecraftCommand;
 
 import java.lang.reflect.Method;
 

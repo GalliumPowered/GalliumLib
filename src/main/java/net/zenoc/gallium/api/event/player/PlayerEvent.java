@@ -1,9 +1,10 @@
-package net.zenoc.gallium.event.player;
+package net.zenoc.gallium.api.event.player;
 
-import net.zenoc.gallium.api.entity.Player;
-import net.zenoc.gallium.event.Event;
+import net.zenoc.gallium.api.event.CancelableEvent;
+import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.api.event.Event;
 
-public abstract class PlayerEvent extends Event {
+public class PlayerEvent extends CancelableEvent {
     Player player;
     /**
      * The player

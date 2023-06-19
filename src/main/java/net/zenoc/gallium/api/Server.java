@@ -1,9 +1,8 @@
-package net.zenoc.gallium.plugin;
+package net.zenoc.gallium.api;
 
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.chat.ChatMessage;
-import net.zenoc.gallium.api.entity.Player;
-import net.zenoc.gallium.commandsys.CommandContext;
+import net.zenoc.gallium.api.world.entity.Player;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public interface Server {
     /**
      * Get online players as a number
      *
-     * @return number of {@link net.zenoc.gallium.api.entity.Player}s online
+     * @return number of {@link Player}s online
      */
     static int currentPlayerCount() {
         return Gallium.getNMS().getPlayerCount();
@@ -27,7 +26,7 @@ public interface Server {
     /**
      * Get the maximum number of players that can be on the server
      *
-     * @return number max {@link net.zenoc.gallium.api.entity.Player}s
+     * @return number max {@link Player}s
      */
     static int maxPlayerCount() {
         return Gallium.getNMS().getMaxPlayers();

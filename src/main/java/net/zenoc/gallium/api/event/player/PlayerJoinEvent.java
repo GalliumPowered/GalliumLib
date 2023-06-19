@@ -1,11 +1,13 @@
-package net.zenoc.gallium.event.player;
+package net.zenoc.gallium.api.event.player;
 
-import net.zenoc.gallium.api.entity.Player;
+import net.zenoc.gallium.api.event.CancelableEvent;
+import net.zenoc.gallium.api.world.entity.Player;
 
 /**
  * A player join event
  */
-public abstract class PlayerJoinEvent extends PlayerEvent {
+public class PlayerJoinEvent extends PlayerEvent {
+    boolean suppressed = false;
     /**
      * The player
      *
@@ -18,5 +20,11 @@ public abstract class PlayerJoinEvent extends PlayerEvent {
     /**
      * Hide the message
      */
-    abstract void suppressMessage();
+    public void setSuppressed(boolean suppressed) {
+        this.suppressed = suppressed;
+    }
+
+    public boolean isSuppressed() {
+        return suppressed;
+    }
 }

@@ -1,4 +1,4 @@
-package net.zenoc.gallium.api;
+package net.zenoc.gallium.api.chat;
 
 public class Colors {
 

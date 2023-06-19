@@ -1,4 +1,4 @@
-package net.zenoc.gallium;
+package net.zenoc.gallium.api.chat;
 
 import java.util.StringJoiner;
 

@@ -1,8 +1,20 @@
-package net.zenoc.gallium.event;
+package net.zenoc.gallium.api.event;
 
-public abstract class CancelableEvent {
+public abstract class CancelableEvent extends Event {
+    public boolean isCancelled;
     /**
-     * Cancel an event
+     * Cancel the event
      */
-    abstract void cancelEvent();
+    public void setCancelled(boolean cancelled) {
+        this.isCancelled = cancelled;
+    }
+
+    /**
+     * Whether the event was cancelled
+     * @return whether the event was cancelled
+     */
+    public boolean isCancelled() {
+        return this.isCancelled;
+    }
+
 }

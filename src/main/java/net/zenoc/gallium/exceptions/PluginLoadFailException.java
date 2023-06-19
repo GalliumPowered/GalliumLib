@@ -1,4 +1,4 @@
-package net.zenoc.gallium.galliumlib.exceptions;
+package net.zenoc.gallium.exceptions;
 
 public class PluginLoadFailException extends RuntimeException {
     public PluginLoadFailException() {

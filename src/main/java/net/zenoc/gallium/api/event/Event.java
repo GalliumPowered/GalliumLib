@@ -1,7 +1,14 @@
-package net.zenoc.gallium.event;
+package net.zenoc.gallium.api.event;
 
-public abstract class Event implements EventBase {
-    public void call() {
+import net.zenoc.gallium.Gallium;
 
+public abstract class Event {
+    /**
+     * Call the event
+     * @return this
+     */
+    public Event call() {
+        Gallium.getEventDispatcher().callEvent(this);
+        return this;
     }
 }
