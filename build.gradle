@@ -7,10 +7,12 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    // TODO: Zenoc repo
-    mavenLocal()
+    // mavenLocal()
     maven {
         url "https://libraries.minecraft.net"
+    }
+    maven {
+        url "https://repo.zenoc.net/repository"
     }
 }
 
