@@ -3,6 +3,8 @@ package net.zenoc.gallium.api.world.entity;
 import net.kyori.adventure.text.Component;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
+import net.zenoc.gallium.api.Gamemode;
 import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.chat.Colors;
@@ -150,5 +152,23 @@ public class Player extends Entity {
      */
     public void setPrefix(String prefix) throws SQLException {
         Gallium.getDatabase().setPlayerPrefix(this, prefix);
+    }
+
+    /**
+     * Teleport the player
+     * @param x The X coordinate
+     * @param y The Y coordinate
+     * @param z The Z coordinate
+     */
+    public void teleport(double x, double y, double z) {
+        nmsPlayer.teleportTo(x, y, z);
+    }
+
+    /**
+     * Set the player's {@link Gamemode}
+     * @param gamemode The {@link Gamemode}
+     */
+    public void setGamemode(Gamemode gamemode) {
+        nmsPlayer.setGameMode(GameType.byId(gamemode.getId()));
     }
 }

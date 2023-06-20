@@ -5,6 +5,7 @@ import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.world.entity.Player;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class CommandCaller {
     String name;

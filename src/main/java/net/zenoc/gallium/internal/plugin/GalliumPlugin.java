@@ -4,6 +4,7 @@ import net.zenoc.gallium.api.annotations.EventListener;
 import net.zenoc.gallium.api.annotations.RegisterPlugin;
 import net.zenoc.gallium.api.event.system.ServerStartEvent;
 import net.zenoc.gallium.internal.plugin.commands.GalliumCommand;
+import net.zenoc.gallium.internal.plugin.commands.GamemodeCommand;
 import net.zenoc.gallium.internal.plugin.commands.PingCommand;
 import net.zenoc.gallium.internal.plugin.commands.PluginListCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.GroupmodCommand;
@@ -25,6 +26,7 @@ public class GalliumPlugin {
             .addCommand(new PingCommand())
             .addCommand(new PlayermodCommand())
             .addCommand(new GroupmodCommand())
+            .addCommand(new GamemodeCommand())
             .addListener(new PlayerJoinListener())
             .addListener(this)
             .build();

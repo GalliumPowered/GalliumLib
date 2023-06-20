@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class CommandManager {
     private static final Logger log = LogManager.getLogger();
@@ -105,6 +106,20 @@ public class CommandManager {
                 @Override
                 public String[] getCommandArgs() {
                     return args;
+                }
+
+                @Override
+                public net.zenoc.gallium.commandsys.CommandContext ifPlayer(Consumer<Player> consumer) {
+                    getCaller().getPlayer().ifPresent(consumer);
+                    return this;
+                }
+
+                @Override
+                public net.zenoc.gallium.commandsys.CommandContext ifConsole(Consumer<CommandCaller> consumer) {
+                    if (getCaller().getPlayer().isEmpty()) {
+                        consumer.accept(getCaller());
+                    }
+                    return this;
                 }
             });
         } catch (Exception e) {
