@@ -12,6 +12,8 @@ import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.world.entity.Player;
 import net.zenoc.gallium.exceptions.CommandException;
 import net.zenoc.gallium.plugin.Plugin;
+import net.zenoc.gallium.plugin.PluginMeta;
+import net.zenoc.gallium.plugin.java.JavaPlugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,18 +34,20 @@ public class CommandManager {
      * Register a command on the server
      */
     public void registerCommand(Object command, Plugin plugin) {
+        PluginMeta meta = plugin.getMeta();
+
         Arrays.stream(command.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(Command.class))
             .map(method -> new MCommand(method.getAnnotation(Command.class), command, method))
-            .forEach(cmd -> doRegister(cmd, plugin));
+            .forEach(cmd -> doRegister(cmd, meta));
     }
 
-    private void doRegister(MCommand cmd, Plugin plugin) {
+    private void doRegister(MCommand cmd, PluginMeta meta) {
         for (String alias : cmd.getCommand().aliases()) {
             internalRegister(alias, cmd.getCommand().neededPerms());
-            internalRegister(plugin.getId() + ":" + alias, cmd.getCommand().neededPerms());
+            internalRegister(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
 
-            commands.put(plugin.getId() + ":" + alias, cmd);
+            commands.put(meta.getId() + ":" + alias, cmd);
             commands.put(alias, cmd);
         }
     }

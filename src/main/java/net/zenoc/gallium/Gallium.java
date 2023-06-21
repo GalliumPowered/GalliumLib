@@ -33,6 +33,7 @@ public abstract class Gallium {
     protected File bannedIPsFile;
     protected File bannedPlayersFile;
     protected File pluginsDirectory;
+    protected File pluginConfigDirectory;
     private static boolean pluginsLoaded = false;
     protected Server server;
 
@@ -157,6 +158,14 @@ public abstract class Gallium {
      */
     public static File getPluginsDirectory() {
         return instance.pluginsDirectory;
+    }
+
+    /**
+     * Get the plugins config directory
+     * @return Plugins config directory
+     */
+    public static File getPluginConfigDirectory() {
+        return instance.pluginConfigDirectory;
     }
 
     /**

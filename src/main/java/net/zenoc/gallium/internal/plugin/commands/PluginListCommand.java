@@ -5,6 +5,8 @@ import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.api.chat.Colors;
 import net.zenoc.gallium.api.annotations.Command;
 import net.zenoc.gallium.commandsys.CommandContext;
+import net.zenoc.gallium.api.annotations.Plugin;
+import net.zenoc.gallium.plugin.PluginMeta;
 
 public class PluginListCommand {
     @Command(aliases = {"pluginlist", "plugins"}, description = "Show all plugins loaded on the server", neededPerms = "PLUGINS")
@@ -12,7 +14,8 @@ public class PluginListCommand {
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--- Plugin list ---"));
 //        ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--------------------"));
         Gallium.getPluginManager().getLoadedPlugins().forEach(plugin -> {
-            ctx.getCaller().sendMessage(ChatMessage.from(plugin.getName()));
+            PluginMeta meta = plugin.getMeta();
+            ctx.getCaller().sendMessage(ChatMessage.from(Colors.WHITE + meta.getName() + " (" + meta.getId() + ")"));
         });
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--------------------"));
     }
