@@ -51,7 +51,8 @@ public class PluginManager {
                 "gallium",
                 "Internal Gallium plugin",
                 new String[] { "SlimeDiamond" },
-                "1.0"));
+                "1.0",
+                "net.zenoc.gallium.internal.plugin.GalliumPlugin"));
 
         // Load plugins in the plugins directory
         File pluginsDir = Gallium.getPluginsDirectory();
@@ -74,32 +75,49 @@ public class PluginManager {
             } else if (zip.getEntry("mcmod.info") != null) {
                 throw new BadPluginException("Sponge plugins and Forge mods are not natively supported. Please remove " + file.getName());
             } else {
-                if (zip.getEntry("plugin.json") == null) {
-                    throw new BadPluginException("Could not find plugin.json in " + zip.getName());
-                }
+                // TODO: What the fuck is this
+                PluginMeta meta = null;
+                String mainClass;
 
                 // Load from JSON
-                ZipEntry pluginConfig = zip.getEntry("plugin.json");
-                InputStream configInput = zip.getInputStream(pluginConfig);
-                InputStreamReader configReader = new InputStreamReader(configInput);
-                BufferedReader br = new BufferedReader(configReader);
+                if (zip.getEntry("plugin.json") != null) {
+                    ZipEntry pluginConfig = zip.getEntry("plugin.json");
+                    InputStream configInput = zip.getInputStream(pluginConfig);
+                    InputStreamReader configReader = new InputStreamReader(configInput);
+                    BufferedReader br = new BufferedReader(configReader);
 
-                JSONTokener tokener = new JSONTokener(br);
-                JSONObject json = new JSONObject(tokener);
+                    JSONTokener tokener = new JSONTokener(br);
+                    JSONObject json = new JSONObject(tokener);
 
-                String name = json.getString("name");
-                String id = json.getString("id");
-                String mainClass = json.getString("mainClass");
-                String description = json.getString("description");
-                String version = json.getString("version");
+                    String name = json.getString("name");
+                    String id = json.getString("id");
+                    String description = json.getString("description");
+                    String version = json.getString("version");
 
-                JSONArray authorsJSON = json.getJSONArray("authors");
-                String[] authors = new String[authorsJSON.length()];
-                for (int i = 0; i < authorsJSON.length(); i++) {
-                    authors[i] = (String) authorsJSON.get(i);
+                    mainClass = json.getString("mainClass");
+
+                    JSONArray authorsJSON = json.getJSONArray("authors");
+                    String[] authors = new String[authorsJSON.length()];
+                    for (int i = 0; i < authorsJSON.length(); i++) {
+                        authors[i] = (String) authorsJSON.get(i);
+                    }
+
+                    meta = new DefaultPluginMeta(name, id, description, authors, version, mainClass);
+                } else {
+                    ZipEntry manifest = zip.getEntry("META-INF/MANIFEST.MF");
+                    if (manifest == null) {
+                        throw new BadPluginException("Could not find META-INF/MANIFEST.MF manifest file in " + file.getName());
+                    } else {
+                        InputStream manifestInput = zip.getInputStream(manifest);
+                        InputStreamReader manifestReader = new InputStreamReader(manifestInput);
+                        BufferedReader br = new BufferedReader(manifestReader);
+
+                        Properties prop = new Properties();
+                        prop.load(br);
+
+                        mainClass = prop.getProperty("Main-Class");
+                    }
                 }
-
-                PluginMeta meta = new DefaultPluginMeta(name, id, description, authors, version);
 
                 try {
                     URLClassLoader child = new URLClassLoader(new URL[] { file.toURI().toURL() }, this.getClass().getClassLoader());
@@ -107,11 +125,15 @@ public class PluginManager {
                     Class<? extends JavaPlugin> javaPluginClass;
                     try {
                         javaPluginClass = clazz.asSubclass(JavaPlugin.class);
-                        javaPluginLoader.loadPlugin(javaPluginClass.newInstance(), meta);
                     } catch (ClassCastException e) {
                         throw new BadPluginException(file.getName() + " main class does not inherit JavaPlugin! (Hint: extend JavaPlugin)");
                     }
+                    if (meta == null) {
+                        net.zenoc.gallium.api.annotations.Plugin plugin = javaPluginClass.getAnnotation(net.zenoc.gallium.api.annotations.Plugin.class);
+                        meta = new DefaultPluginMeta(plugin.name(), plugin.id(), plugin.description(), plugin.authors(), plugin.version(), mainClass);
+                    }
 
+                    javaPluginLoader.loadPlugin(javaPluginClass.newInstance(), meta);
                 } catch (Exception e) {
                     throw new PluginLoadFailException(e);
                 }

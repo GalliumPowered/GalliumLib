@@ -11,7 +11,16 @@ import net.zenoc.gallium.plugin.PluginMeta;
 
 import java.util.Arrays;
 
+/**
+ * Loads plugins in the Java programming lanuage
+ */
 public class JavaPluginLoader implements PluginLoader {
+
+    /**
+     * Loads a {@link JavaPlugin}
+     * @param plugin The plugin
+     * @param meta The metadata of the plugin
+     */
     @Override
     public void loadPlugin(Plugin plugin, PluginMeta meta) {
         try {
