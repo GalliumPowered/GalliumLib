@@ -39,6 +39,7 @@ public class JavaPluginLoader implements PluginLoader {
                         throw new PluginLoadFailException(e);
                     }
                 });
+        Gallium.getPluginManager().addPlugin(plugin, meta);
     }
 
     /**
