@@ -31,6 +31,20 @@ public class JavaPluginLoader implements PluginLoader {
     }
 
     /**
+     * Unloads a {@link JavaPlugin}
+     * @param plugin The plugin
+     * @param meta The metadata of the plugin
+     */
+    @Override
+    public void unloadPlugin(Plugin plugin, PluginMeta meta) {
+        try {
+            _unload((JavaPlugin) plugin, meta);
+        } catch (ClassCastException e) {
+            throw new PluginLoadFailException(e);
+        }
+    }
+
+    /**
      * Loads a plugin
      * @param plugin The plugin
      * @param meta A {@link Plugin} annotation
@@ -54,7 +68,7 @@ public class JavaPluginLoader implements PluginLoader {
     /**
      * Unload a plugin
      * @param plugin The plugin
-     * @param meta A {@link Plugin} annotation
+     * @param meta The plugin's {@link PluginMeta}
      */
     @SuppressWarnings("deprecation")
     private void _unload(JavaPlugin plugin, PluginMeta meta) {
