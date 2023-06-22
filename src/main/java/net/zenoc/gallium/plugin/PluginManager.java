@@ -46,13 +46,7 @@ public class PluginManager {
     public void loadPlugins() throws IOException {
         // Load internal plugin
         GalliumPlugin internalPlugin = new GalliumPlugin();
-        javaPluginLoader.loadPlugin(internalPlugin, new DefaultPluginMeta(
-                "Gallium",
-                "gallium",
-                "Internal Gallium plugin",
-                new String[] { "SlimeDiamond" },
-                "1.0",
-                "net.zenoc.gallium.internal.plugin.GalliumPlugin"));
+        javaPluginLoader.loadPlugin(internalPlugin, getPluginMetaFromAnotation(internalPlugin.getClass()));
 
         // Load plugins in the plugins directory
         File pluginsDir = Gallium.getPluginsDirectory();
@@ -129,8 +123,7 @@ public class PluginManager {
                         throw new BadPluginException(file.getName() + " main class does not inherit JavaPlugin! (Hint: extend JavaPlugin)");
                     }
                     if (meta == null) {
-                        net.zenoc.gallium.api.annotations.Plugin plugin = javaPluginClass.getAnnotation(net.zenoc.gallium.api.annotations.Plugin.class);
-                        meta = new DefaultPluginMeta(plugin.name(), plugin.id(), plugin.description(), plugin.authors(), plugin.version(), mainClass);
+                        meta = getPluginMetaFromAnotation(javaPluginClass);
                     }
 
                     javaPluginLoader.loadPlugin(javaPluginClass.newInstance(), meta);
@@ -141,15 +134,15 @@ public class PluginManager {
         }
     }
 
-//    /**
-//     * Unload all plugins on the server
-//     */
-//    public void unloadPlugins() {
-//        for (JavaPlugin plugin : plugins) {
-//            Plugin meta = plugin.getClass().getAnnotation(Plugin.class);
-//            unloadPlugin(plugin, meta);
-//        }
-//    }
+    /**
+     * Unload all plugins on the server
+     */
+    public void unloadPlugins() {
+        for (Plugin plugin : plugins) {
+            javaPluginLoader.unloadPlugin(plugin, getPluginMeta(plugin));
+            plugins.remove(plugin);
+        }
+    }
 
     /**
      * FOR INTERNAL USE ONLY. DO NOT CALL THIS METHOD.
@@ -169,5 +162,10 @@ public class PluginManager {
      */
     public PluginMeta getPluginMeta(Plugin plugin) {
         return pluginMetas.get(plugin);
+    }
+
+    private PluginMeta getPluginMetaFromAnotation(Class<? extends JavaPlugin> javaPluginClass) {
+        net.zenoc.gallium.api.annotations.Plugin plugin = javaPluginClass.getAnnotation(net.zenoc.gallium.api.annotations.Plugin.class);
+        return new DefaultPluginMeta(plugin.name(), plugin.id(), plugin.description(), plugin.authors(), plugin.version(), javaPluginClass.getName());
     }
 }

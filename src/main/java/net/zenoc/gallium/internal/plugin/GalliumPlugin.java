@@ -14,7 +14,11 @@ import net.zenoc.gallium.plugin.PluginLifecycleState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Plugin(name = "Gallium", id = "gallium", description = "Gallium internal plugin", authors = { "SlimeDiamond" }, version = "1.0")
+@Plugin(name = "Gallium",
+        id = "gallium",
+        description = "Gallium internal plugin",
+        authors = { "SlimeDiamond" },
+        version = "1.0")
 public class GalliumPlugin extends JavaPlugin {
     private static final Logger log = LogManager.getLogger();
     @PluginLifecycleListener(PluginLifecycleState.ENABLED)
