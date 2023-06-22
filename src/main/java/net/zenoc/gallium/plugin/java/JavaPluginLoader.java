@@ -1,0 +1,63 @@
+package net.zenoc.gallium.plugin.java;
+
+import net.zenoc.gallium.Gallium;
+import net.zenoc.gallium.api.annotations.PluginLifecycleListener;
+import net.zenoc.gallium.exceptions.BadPluginException;
+import net.zenoc.gallium.exceptions.PluginLoadFailException;
+import net.zenoc.gallium.plugin.Plugin;
+import net.zenoc.gallium.plugin.PluginLifecycleState;
+import net.zenoc.gallium.plugin.PluginLoader;
+import net.zenoc.gallium.plugin.PluginMeta;
+
+import java.util.Arrays;
+
+public class JavaPluginLoader implements PluginLoader {
+    @Override
+    public void loadPlugin(Plugin plugin, PluginMeta meta) {
+        try {
+            _load((JavaPlugin) plugin, meta);
+        } catch (ClassCastException e) {
+            throw new PluginLoadFailException(e);
+        }
+    }
+
+    /**
+     * Loads a plugin
+     * @param plugin The plugin
+     * @param meta A {@link Plugin} annotation
+     */
+    @SuppressWarnings("deprecation")
+    private void _load(JavaPlugin plugin, PluginMeta meta) {
+        Class<? extends JavaPlugin> clazz = plugin.getClass();
+        Arrays.stream(clazz.getMethods())
+                .filter(method -> method.isAnnotationPresent(PluginLifecycleListener.class))
+                .filter(method -> method.getAnnotation(PluginLifecycleListener.class).value() == PluginLifecycleState.ENABLED)
+                .forEach(method -> {
+                    try {
+                        method.invoke(clazz.newInstance());
+                    } catch (Exception e) {
+                        throw new PluginLoadFailException(e);
+                    }
+                });
+    }
+
+    /**
+     * Unload a plugin
+     * @param plugin The plugin
+     * @param meta A {@link Plugin} annotation
+     */
+    @SuppressWarnings("deprecation")
+    private void _unload(JavaPlugin plugin, PluginMeta meta) {
+        Class<? extends JavaPlugin> clazz = plugin.getClass();
+        Arrays.stream(clazz.getMethods())
+                .filter(method -> method.isAnnotationPresent(PluginLifecycleListener.class))
+                .filter(method -> method.getAnnotation(PluginLifecycleListener.class).value() == PluginLifecycleState.DISABLED)
+                .forEach(method -> {
+                    try {
+                        method.invoke(clazz.newInstance());
+                    } catch (Exception e) {
+                        throw new PluginLoadFailException(e);
+                    }
+                });
+    }
+}

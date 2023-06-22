@@ -8,7 +8,7 @@ import net.zenoc.gallium.internal.plugin.commands.PingCommand;
 import net.zenoc.gallium.internal.plugin.commands.PluginListCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.GroupmodCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.PlayermodCommand;
-import net.zenoc.gallium.plugin.JavaPlugin;
+import net.zenoc.gallium.plugin.java.JavaPlugin;
 import net.zenoc.gallium.api.annotations.Plugin;
 import net.zenoc.gallium.plugin.PluginLifecycleState;
 import org.apache.logging.log4j.LogManager;

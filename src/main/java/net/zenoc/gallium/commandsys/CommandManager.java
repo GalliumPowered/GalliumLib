@@ -11,7 +11,7 @@ import net.zenoc.gallium.api.annotations.Command;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.world.entity.Player;
 import net.zenoc.gallium.exceptions.CommandException;
-import net.zenoc.gallium.plugin.JavaPlugin;
+import net.zenoc.gallium.plugin.java.JavaPlugin;
 import net.zenoc.gallium.api.annotations.Plugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
