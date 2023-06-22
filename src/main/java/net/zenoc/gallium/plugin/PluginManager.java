@@ -22,6 +22,7 @@ import java.util.zip.ZipFile;
 
 public class PluginManager {
     ArrayList<Plugin> plugins = new ArrayList<>();
+    HashMap<Plugin, PluginMeta> pluginMetas = new HashMap<>();
     public JavaPluginLoader javaPluginLoader = new JavaPluginLoader();
     private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
     public PluginManager() {
@@ -44,8 +45,13 @@ public class PluginManager {
     @SuppressWarnings("deprecation")
     public void loadPlugins() throws IOException {
         // Load internal plugin
-//        GalliumPlugin internalPlugin = new GalliumPlugin();
-//        loadPlugin(internalPlugin, internalPlugin.getClass().getAnnotation(Plugin.class));
+        GalliumPlugin internalPlugin = new GalliumPlugin();
+        javaPluginLoader.loadPlugin(internalPlugin, new DefaultPluginMeta(
+                "Gallium",
+                "gallium",
+                "Internal Gallium plugin",
+                new String[] { "SlimeDiamond" },
+                "1.0"));
 
         // Load plugins in the plugins directory
         File pluginsDir = Gallium.getPluginsDirectory();
@@ -122,4 +128,24 @@ public class PluginManager {
 //            unloadPlugin(plugin, meta);
 //        }
 //    }
+
+    /**
+     * FOR INTERNAL USE ONLY. DO NOT CALL THIS METHOD.
+     * Adds a plugin to the HashMap and ArrayList
+     * @param plugin The plugin
+     * @param meta The plugin's metadata
+     */
+    public void addPlugin(Plugin plugin, PluginMeta meta) {
+        plugins.add(plugin);
+        pluginMetas.put(plugin, meta);
+    }
+
+    /**
+     * Get a plugin's metadata
+     * @param plugin The plugin
+     * @return The plugin's {@link PluginMeta}
+     */
+    public PluginMeta getPluginMeta(Plugin plugin) {
+        return pluginMetas.get(plugin);
+    }
 }
