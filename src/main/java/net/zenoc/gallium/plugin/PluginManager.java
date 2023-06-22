@@ -69,15 +69,13 @@ public class PluginManager {
             } else if (zip.getEntry("mcmod.info") != null) {
                 throw new BadPluginException("Sponge plugins and Forge mods are not natively supported. Please remove " + file.getName());
             } else {
-                // TODO: What the fuck is this
                 PluginMeta meta = null;
                 String mainClass;
+                URLClassLoader child = new URLClassLoader(new URL[] { file.toURI().toURL() }, this.getClass().getClassLoader());
 
                 // Load from JSON
                 if (zip.getEntry("plugin.json") != null) {
-                    ZipEntry pluginConfig = zip.getEntry("plugin.json");
-                    InputStream configInput = zip.getInputStream(pluginConfig);
-                    InputStreamReader configReader = new InputStreamReader(configInput);
+                    InputStreamReader configReader = new InputStreamReader(child.getResourceAsStream("plugin.json"));
                     BufferedReader br = new BufferedReader(configReader);
 
                     JSONTokener tokener = new JSONTokener(br);
@@ -114,7 +112,6 @@ public class PluginManager {
                 }
 
                 try {
-                    URLClassLoader child = new URLClassLoader(new URL[] { file.toURI().toURL() }, this.getClass().getClassLoader());
                     Class<?> clazz = Class.forName(mainClass, true, child);
                     Class<? extends JavaPlugin> javaPluginClass;
                     try {
