@@ -2,12 +2,12 @@ package net.zenoc.gallium.plugin;
 
 public class DefaultPluginMeta implements PluginMeta {
 
-    String name;
-    String id;
-    String description;
-    String[] authors;
-    String version;
-    String mainClass;
+   private String name;
+   private String id;
+   private String description;
+   private String[] authors;
+   private String version;
+   private String mainClass;
 
     public DefaultPluginMeta(String name, String id, String description, String[] authors, String version, String mainClass) {
         this.name = name;
