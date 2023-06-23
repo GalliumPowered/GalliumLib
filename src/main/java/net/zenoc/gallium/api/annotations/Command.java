@@ -3,9 +3,6 @@ package net.zenoc.gallium.api.annotations;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/**
- * A command
- */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
     /**
