@@ -1,7 +1,6 @@
 package net.zenoc.gallium.plugin;
 
 import net.zenoc.gallium.Gallium;
-import net.zenoc.gallium.api.annotations.PluginLifecycleListener;
 import net.zenoc.gallium.exceptions.BadPluginException;
 import net.zenoc.gallium.exceptions.PluginLoadFailException;
 import net.zenoc.gallium.internal.plugin.GalliumPlugin;
@@ -21,8 +20,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class PluginManager {
-    ArrayList<Plugin> plugins = new ArrayList<>();
-    HashMap<Plugin, PluginMeta> pluginMetas = new HashMap<>();
+    public Map<Plugin, PluginMeta> plugins = new HashMap<>();
     public JavaPluginLoader javaPluginLoader = new JavaPluginLoader();
     private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
     public PluginManager() {
@@ -38,7 +36,7 @@ public class PluginManager {
      * Get the plugins on the server
      * @return ArrayList of plugins
      */
-    public ArrayList<Plugin> getLoadedPlugins() {
+    public Map<Plugin, PluginMeta> getLoadedPlugins() {
         return plugins;
     }
 
@@ -46,7 +44,10 @@ public class PluginManager {
     public void loadPlugins() throws IOException {
         // Load internal plugin
         GalliumPlugin internalPlugin = new GalliumPlugin();
-        javaPluginLoader.loadPlugin(internalPlugin, getPluginMetaFromAnotation(internalPlugin.getClass()));
+        PluginMeta internalPluginMeta = getPluginMetaFromAnotation(internalPlugin.getClass());
+        addPlugin(internalPlugin, internalPluginMeta);
+        javaPluginLoader.loadPlugin(internalPlugin);
+
 
         // Load plugins in the plugins directory
         File pluginsDir = Gallium.getPluginsDirectory();
@@ -123,7 +124,9 @@ public class PluginManager {
                         meta = getPluginMetaFromAnotation(javaPluginClass);
                     }
 
-                    javaPluginLoader.loadPlugin(javaPluginClass.newInstance(), meta);
+                    Plugin plugin = javaPluginClass.newInstance();
+                    addPlugin(plugin, meta);
+                    javaPluginLoader.loadPlugin(plugin);
                 } catch (Exception e) {
                     throw new PluginLoadFailException(e);
                 }
@@ -135,10 +138,7 @@ public class PluginManager {
      * Unload all plugins on the server
      */
     public void unloadPlugins() {
-        for (Plugin plugin : plugins) {
-            javaPluginLoader.unloadPlugin(plugin, getPluginMeta(plugin));
-            plugins.remove(plugin);
-        }
+        plugins.forEach((plugin, meta) -> javaPluginLoader.unloadPlugin(plugin));
     }
 
     /**
@@ -148,17 +148,7 @@ public class PluginManager {
      * @param meta The plugin's metadata
      */
     public void addPlugin(Plugin plugin, PluginMeta meta) {
-        plugins.add(plugin);
-        pluginMetas.put(plugin, meta);
-    }
-
-    /**
-     * Get a plugin's metadata
-     * @param plugin The plugin
-     * @return The plugin's {@link PluginMeta}
-     */
-    public PluginMeta getPluginMeta(Plugin plugin) {
-        return pluginMetas.get(plugin);
+        plugins.put(plugin, meta);
     }
 
     private PluginMeta getPluginMetaFromAnotation(Class<? extends JavaPlugin> javaPluginClass) {

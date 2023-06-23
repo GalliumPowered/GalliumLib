@@ -13,8 +13,7 @@ public class PluginListCommand {
     public void pluginListCommand(CommandContext ctx) {
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--- Plugin list ---"));
 //        ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--------------------"));
-        Gallium.getPluginManager().getLoadedPlugins().forEach(plugin -> {
-            PluginMeta meta = Gallium.getPluginManager().getPluginMeta(plugin);
+        Gallium.getPluginManager().getLoadedPlugins().forEach((plugin, meta) -> {
             ctx.getCaller().sendMessage(ChatMessage.from(Colors.WHITE + meta.getName() + " (" + meta.getId() + ")"));
         });
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--------------------"));
