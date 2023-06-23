@@ -34,7 +34,7 @@ public class CommandManager {
      * Register a command on the server
      */
     public void registerCommand(Object command, Plugin plugin) {
-        PluginMeta meta = Gallium.getPluginManager().plugins.get(plugin);
+        PluginMeta meta = plugin.getMeta();
 
         Arrays.stream(command.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(Command.class))

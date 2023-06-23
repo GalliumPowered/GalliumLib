@@ -20,7 +20,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class PluginManager {
-    public Map<Plugin, PluginMeta> plugins = new HashMap<>();
+    private ArrayList<Plugin> plugins = new ArrayList<>();
     public JavaPluginLoader javaPluginLoader = new JavaPluginLoader();
     private static final Logger log = LogManager.getLogger("Gallium/PluginManager");
     public PluginManager() {
@@ -36,7 +36,7 @@ public class PluginManager {
      * Get the plugins on the server
      * @return ArrayList of plugins
      */
-    public Map<Plugin, PluginMeta> getLoadedPlugins() {
+    public ArrayList<Plugin> getLoadedPlugins() {
         return plugins;
     }
 
@@ -44,8 +44,9 @@ public class PluginManager {
     public void loadPlugins() throws IOException {
         // Load internal plugin
         GalliumPlugin internalPlugin = new GalliumPlugin();
-        PluginMeta internalPluginMeta = getPluginMetaFromAnotation(internalPlugin.getClass());
-        addPlugin(internalPlugin, internalPluginMeta);
+        PluginMeta internalPluginMeta = getPluginMetaFromAnnotation(internalPlugin.getClass());
+        internalPlugin.setMeta(internalPluginMeta);
+        addPlugin(internalPlugin);
         javaPluginLoader.loadPlugin(internalPlugin);
 
 
@@ -121,11 +122,12 @@ public class PluginManager {
                         throw new BadPluginException(file.getName() + " main class does not inherit JavaPlugin! (Hint: extend JavaPlugin)");
                     }
                     if (meta == null) {
-                        meta = getPluginMetaFromAnotation(javaPluginClass);
+                        meta = getPluginMetaFromAnnotation(javaPluginClass);
                     }
 
                     Plugin plugin = javaPluginClass.newInstance();
-                    addPlugin(plugin, meta);
+                    plugin.setMeta(meta);
+                    addPlugin(plugin);
                     javaPluginLoader.loadPlugin(plugin);
                 } catch (Exception e) {
                     throw new PluginLoadFailException(e);
@@ -138,20 +140,19 @@ public class PluginManager {
      * Unload all plugins on the server
      */
     public void unloadPlugins() {
-        plugins.forEach((plugin, meta) -> javaPluginLoader.unloadPlugin(plugin));
+        plugins.forEach(plugin -> javaPluginLoader.unloadPlugin(plugin));
     }
 
     /**
      * FOR INTERNAL USE ONLY. DO NOT CALL THIS METHOD.
      * Adds a plugin to the HashMap and ArrayList
      * @param plugin The plugin
-     * @param meta The plugin's metadata
      */
-    public void addPlugin(Plugin plugin, PluginMeta meta) {
-        plugins.put(plugin, meta);
+    public void addPlugin(Plugin plugin) {
+        plugins.add(plugin);
     }
 
-    private PluginMeta getPluginMetaFromAnotation(Class<? extends JavaPlugin> javaPluginClass) {
+    private PluginMeta getPluginMetaFromAnnotation(Class<? extends JavaPlugin> javaPluginClass) {
         net.zenoc.gallium.api.annotations.Plugin plugin = javaPluginClass.getAnnotation(net.zenoc.gallium.api.annotations.Plugin.class);
         return new DefaultPluginMeta(plugin.name(), plugin.id(), plugin.description(), plugin.authors(), plugin.version(), javaPluginClass.getName());
     }
