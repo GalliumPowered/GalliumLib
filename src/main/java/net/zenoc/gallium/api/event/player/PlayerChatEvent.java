@@ -3,7 +3,7 @@ package net.zenoc.gallium.api.event.player;
 import net.zenoc.gallium.api.world.entity.Player;
 
 public class PlayerChatEvent extends PlayerEvent {
-    String content;
+    private String content;
     /**
      * {@inheritDoc}
      */
