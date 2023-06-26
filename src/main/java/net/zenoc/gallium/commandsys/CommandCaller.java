@@ -7,20 +7,11 @@ import net.zenoc.gallium.api.world.entity.Player;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CommandCaller {
-    String name;
-    CommandCallerType type;
-    public CommandCaller(String name, CommandCallerType type) {
-        this.name = name;
-        this.type = type;
-    }
+public interface CommandCaller {
 
-    public Optional<Player> getPlayer() {
-        if (type == CommandCallerType.CONSOLE) return Optional.empty();
-        return Optional.of(new Player(Gallium.getNMS().getPlayerList().getPlayerByName(name)));
-    }
+    public Optional<Player> getPlayer();
 
-    public void sendMessage(ChatMessage message) {
+    default void sendMessage(ChatMessage message) {
         this.getPlayer().ifPresentOrElse(player -> player.sendMessage(message), () -> System.out.println(message.getContent()));
     }
 }

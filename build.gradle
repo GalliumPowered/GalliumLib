@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'net.zenoc.gallium'
-version = '1.1.0-beta.2'
+version = '1.1.0-beta.3'
 
 repositories {
     mavenCentral()
@@ -19,7 +19,6 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'net.minecraft:server:1.17.1'
     compileOnly 'com.mojang:brigadier:1.0.18'
     implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
     implementation 'org.apache.logging.log4j:log4j-api:2.19.0'

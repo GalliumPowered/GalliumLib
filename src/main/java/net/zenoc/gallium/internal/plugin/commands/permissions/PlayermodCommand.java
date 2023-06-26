@@ -23,7 +23,7 @@ public class PlayermodCommand {
             sendUsage(caller);
             return;
         }
-        Player.fromName(args[1]).ifPresentOrElse(player -> {
+        Gallium.getNMSBridge().getPlayerByName(args[1]).ifPresentOrElse(player -> {
             // /playermod <player>
             if (args.length == 2) {
                 caller.sendMessage(ChatMessage.from(Colors.GREEN + "--- Player Info ---"));

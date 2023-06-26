@@ -1,16 +1,12 @@
 package net.zenoc.gallium.api.world.entity;
 
 import net.kyori.adventure.text.Component;
-import net.minecraft.Util;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.GameType;
 import net.zenoc.gallium.api.Gamemode;
 import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.chat.Colors;
 import net.zenoc.gallium.permissionsys.Group;
 import net.zenoc.gallium.permissionsys.PermissionOwner;
-import net.zenoc.gallium.util.TextTransformer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,27 +14,19 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Player extends Entity {
-    ServerPlayer nmsPlayer;
-    public Player(ServerPlayer nmsPlayer) {
-        super(nmsPlayer.getName().getContents().strip());
-        this.nmsPlayer = nmsPlayer;
-    }
-
+public interface Player extends Entity {
     /**
      * Get the player's UUID
      * @return the uuid
      */
-    public String getUUID() {
-        return nmsPlayer.getUUID().toString().strip();
-    }
+    String getUUID();
 
     /**
      * Whether the player has a permission
      * @param permission the permission
      * @return whether the player has the permission
      */
-    public boolean hasPermission(String permission) {
+    default boolean hasPermission(String permission) {
         return Gallium.getPermissionManager().playerHasPermission(this, permission);
     }
 
@@ -46,7 +34,7 @@ public class Player extends Entity {
      * Get the players permissions
      * @return {@link ArrayList} of permissions
      */
-    public ArrayList<String> getPermissions() {
+    default ArrayList<String> getPermissions() {
         return Gallium.getPermissionManager().getPlayerPermissions(this);
     }
 
@@ -54,50 +42,24 @@ public class Player extends Entity {
      * Send a message to the player
      * @param message a {@link ChatMessage}
      */
-    public void sendMessage(ChatMessage message) {
-        nmsPlayer.sendMessage(TextTransformer.toMinecraft(Component.text(message.getContent())), Util.NIL_UUID);
-    }
+    void sendMessage(ChatMessage message);
 
     /**
      * Disconnect the player
      * @param reason the reason for disconnecting them
      */
-    public void disconnect(ChatMessage reason) {
-        nmsPlayer.sendMessage(TextTransformer.toMinecraft(Component.text("Disconnecting: " + reason.getContent())), Util.NIL_UUID);
-        nmsPlayer.connection.disconnect(TextTransformer.toMinecraft(Component.text(reason.getContent())));
-    }
+    void disconnect(ChatMessage reason);
 
     /**
      * Disconnect the player
      */
-    public void disconnect() {
-        this.sendMessage(ChatMessage.from("Disconnecting"));
-        nmsPlayer.disconnect();
-    }
-
-    /**
-     * Get a player by their username
-     * @param username the username of the desired player
-     * @return the {@link Player}
-     */
-    public static Optional<Player> fromName(String username) {
-        AtomicReference<Player> player = new AtomicReference<>();
-        Gallium.getNMS().getPlayerList().getPlayers().stream()
-                .filter(serverPlayer -> serverPlayer.getName().getContents().strip().equalsIgnoreCase(username))
-                .findFirst().ifPresent(serverPlayer -> player.set(new Player(serverPlayer)));
-
-        if (player.get() == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(player.get());
-        }
-    }
+    void disconnect();
 
     /**
      * Get the player's prefix
      * @return the prefix
      */
-    public String getPrefix() {
+    default String getPrefix() {
         String prefix = Gallium.getDatabase().getPlayerPrefix(this);
         return Objects.requireNonNullElse(prefix, Colors.WHITE);
     }
@@ -106,7 +68,7 @@ public class Player extends Entity {
      * Get the player's group
      * @return the {@link Group}
      */
-    public Optional<Group> getGroup() {
+    default Optional<Group> getGroup() {
         return Gallium.getDatabase().getPlayerGroup(this);
     }
 
@@ -115,7 +77,7 @@ public class Player extends Entity {
      * @param group the {@link Group}
      * @throws SQLException
      */
-    public void setGroup(Group group) throws SQLException {
+    default void setGroup(Group group) throws SQLException {
         Gallium.getDatabase().setPlayerGroup(this, group);
     }
 
@@ -124,7 +86,7 @@ public class Player extends Entity {
      * @param permission the permission node
      * @throws SQLException
      */
-    public void addPermission(String permission) throws SQLException {
+    default void addPermission(String permission) throws SQLException {
         Gallium.getDatabase().insertPermission(permission, new PermissionOwner(this));
     }
 
@@ -133,7 +95,7 @@ public class Player extends Entity {
      * @param permission the permission node
      * @throws SQLException
      */
-    public void removePermission(String permission) throws SQLException {
+    default void removePermission(String permission) throws SQLException {
         Gallium.getDatabase().removePermission(permission, new PermissionOwner(this));
     }
 
@@ -141,7 +103,7 @@ public class Player extends Entity {
      * Ungroup the player
      * @throws SQLException
      */
-    public void ungroup() throws SQLException {
+    default void ungroup() throws SQLException {
         Gallium.getDatabase().setPlayerGroup(this, null);
     }
 
@@ -150,7 +112,7 @@ public class Player extends Entity {
      * @param prefix the prefix
      * @throws SQLException
      */
-    public void setPrefix(String prefix) throws SQLException {
+    default void setPrefix(String prefix) throws SQLException {
         Gallium.getDatabase().setPlayerPrefix(this, prefix);
     }
 
@@ -160,15 +122,11 @@ public class Player extends Entity {
      * @param y The Y coordinate
      * @param z The Z coordinate
      */
-    public void teleport(double x, double y, double z) {
-        nmsPlayer.teleportTo(x, y, z);
-    }
+    void teleport(double x, double y, double z);
 
     /**
      * Set the player's {@link Gamemode}
      * @param gamemode The {@link Gamemode}
      */
-    public void setGamemode(Gamemode gamemode) {
-        nmsPlayer.setGameMode(GameType.byId(gamemode.getId()));
-    }
+    void setGamemode(Gamemode gamemode);
 }

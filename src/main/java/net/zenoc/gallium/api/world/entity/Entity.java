@@ -1,13 +1,10 @@
 package net.zenoc.gallium.api.world.entity;
 
-public abstract class Entity {
-    String name;
+public interface Entity {
 
-    public Entity(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+    /**
+     * The name of the entity
+     * @return The name of the entity
+     */
+    String getName();
 }

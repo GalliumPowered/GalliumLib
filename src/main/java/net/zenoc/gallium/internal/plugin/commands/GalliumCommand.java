@@ -13,7 +13,7 @@ public class GalliumCommand {
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "Developers: " + Colors.WHITE + "SlimeDiamond, TheKodeToad"));
 //        ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "Contributors: " + Colors.WHITE + "Nobody! Maybe be the first?"));
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "API version: " + Colors.WHITE + Gallium.getVersion()));
-        ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "Minecraft version: " + Colors.WHITE + Gallium.getNMS().getServerVersion()));
+        ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "Minecraft version: " + Colors.WHITE + Gallium.getNMSBridge().getServerVersion()));
         ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--------------------"));
     }
 }

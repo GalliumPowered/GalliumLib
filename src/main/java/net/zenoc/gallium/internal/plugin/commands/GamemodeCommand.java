@@ -1,5 +1,6 @@
 package net.zenoc.gallium.internal.plugin.commands;
 
+import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.Gamemode;
 import net.zenoc.gallium.api.annotations.Command;
 import net.zenoc.gallium.api.chat.ChatMessage;
@@ -37,7 +38,7 @@ public class GamemodeCommand {
 
         if (target.get() == null) {
             String targetName = ctx.getCommandArgs()[2];
-            Player.fromName(targetName).ifPresentOrElse(target::set, () -> {
+            Gallium.getNMSBridge().getPlayerByName(targetName).ifPresentOrElse(target::set, () -> {
                 ctx.getCaller().sendMessage(ChatMessage.from(Colors.LIGHT_RED + "Could not find that player!"));
                 shouldContinue.set(false);
             });

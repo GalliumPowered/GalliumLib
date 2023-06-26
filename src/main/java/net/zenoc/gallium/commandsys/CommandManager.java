@@ -5,8 +5,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ServerPlayer;
 import net.zenoc.gallium.api.annotations.Command;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.world.entity.Player;
@@ -18,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Consumer;
@@ -53,6 +52,7 @@ public class CommandManager {
     }
 
     private void internalRegister(String alias, String permission) {
+        /*
         Gallium.getNMS().getCommands().getDispatcher().register(LiteralArgumentBuilder.<CommandSourceStack>literal(alias)
                 .requires(commandSourceStack -> {
                     if (commandSourceStack.getDisplayName().getContents().equals("Server")) {
@@ -76,8 +76,12 @@ public class CommandManager {
                         .executes(this::executeCommand)
                 )
         );
+         */
+
+        Gallium.getNMSBridge().registerCommand(alias, permission);
     }
 
+    /*
     private int executeCommand(CommandContext<CommandSourceStack> ctx) {
         // FIXME: This might not properly account for permissions. It should though
         String[] args = ctx.getInput().split(" ");
@@ -130,5 +134,10 @@ public class CommandManager {
             throw new CommandException(e);
         }
         return 1;
+    }
+     */
+
+    public HashMap<String, MCommand> getCommands() {
+        return commands;
     }
 }

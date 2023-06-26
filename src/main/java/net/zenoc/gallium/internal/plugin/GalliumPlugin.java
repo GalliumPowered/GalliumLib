@@ -8,6 +8,7 @@ import net.zenoc.gallium.internal.plugin.commands.PingCommand;
 import net.zenoc.gallium.internal.plugin.commands.PluginListCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.GroupmodCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.PlayermodCommand;
+import net.zenoc.gallium.internal.plugin.listeners.PlayerJoinListener;
 import net.zenoc.gallium.plugin.java.JavaPlugin;
 import net.zenoc.gallium.api.annotations.Plugin;
 import net.zenoc.gallium.plugin.PluginLifecycleState;
@@ -23,17 +24,15 @@ public class GalliumPlugin extends JavaPlugin {
     private static final Logger log = LogManager.getLogger();
     @PluginLifecycleListener(PluginLifecycleState.ENABLED)
     public void onPluginEnable() {
-        log.info("Plugin enabled!");
+        // Command registration
         Gallium.getCommandManager().registerCommand(new GalliumCommand(), this);
         Gallium.getCommandManager().registerCommand(new PluginListCommand(), this);
         Gallium.getCommandManager().registerCommand(new PingCommand(), this);
         Gallium.getCommandManager().registerCommand(new PlayermodCommand(), this);
         Gallium.getCommandManager().registerCommand(new GroupmodCommand(), this);
         Gallium.getCommandManager().registerCommand(new GamemodeCommand(), this);
-    }
 
-    @PluginLifecycleListener(PluginLifecycleState.DISABLED)
-    public void onPluginDisable() {
-        log.info("Plugin being disabled");
+        // Listener registration
+        Gallium.getEventManager().registerEvent(new PlayerJoinListener());
     }
 }

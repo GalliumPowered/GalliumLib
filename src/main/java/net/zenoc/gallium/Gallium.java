@@ -1,6 +1,6 @@
 package net.zenoc.gallium;
 
-import net.minecraft.server.MinecraftServer;
+import net.zenoc.gallium.bridge.NMSBridge;
 import net.zenoc.gallium.commandsys.CommandManager;
 import net.zenoc.gallium.database.Database;
 import net.zenoc.gallium.eventsys.EventDispatcher;
@@ -8,7 +8,6 @@ import net.zenoc.gallium.eventsys.EventManager;
 import net.zenoc.gallium.permissionsys.GroupManager;
 import net.zenoc.gallium.permissionsys.PermissionManager;
 import net.zenoc.gallium.plugin.PluginManager;
-import net.zenoc.gallium.api.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,13 +18,13 @@ public abstract class Gallium {
     private static final Logger log;
     protected static Gallium instance;
     protected Database database;
-    protected MinecraftServer nms;
     protected CommandManager commandManager;
     protected PermissionManager permissionManager;
     protected GroupManager groupManager;
     protected PluginManager pluginManager;
     protected EventManager eventManager;
     protected EventDispatcher eventDispatcher;
+    protected NMSBridge nmsBridge;
     protected File galliumConfig;
     protected File serverProperties;
     protected File opListFile;
@@ -40,9 +39,6 @@ public abstract class Gallium {
     static {
         System.out.println("Please wait while the libraries initialize...");
         log = LogManager.getLogger();
-
-        log.info("Gallium version " + getVersion());
-        log.info("Minecraft version " + getMinecraftVersion());
     }
 
     /**
@@ -52,14 +48,6 @@ public abstract class Gallium {
     public static Database getDatabase() {
         return instance.database;
     }
-
-    /**
-     * Get the NMS server
-     * @return Minecraft Server (net.minecraft.server.MinecraftServer)
-     */
-     public static MinecraftServer getNMS() {
-         return instance.nms;
-     }
 
     /**
      * Get server
@@ -112,6 +100,14 @@ public abstract class Gallium {
      */
     public static EventDispatcher getEventDispatcher() {
         return instance.eventDispatcher;
+    }
+
+    /**
+     * Get the NMS bridge
+     * @return NMS bridge
+     */
+    public static NMSBridge getNMSBridge() {
+        return instance.nmsBridge;
     }
 
     public static File getConfig() {
@@ -181,17 +177,6 @@ public abstract class Gallium {
 
     /**
      * FOR INTERNAL USE ONLY
-     * Set NMS
-     * @param server NMS
-     */
-    public static void setNMS(MinecraftServer server) {
-        if (instance.nms == null) {
-            instance.nms = server;
-        }
-    }
-
-    /**
-     * FOR INTERNAL USE ONLY
      * Set server
      * @param server server
      */
@@ -224,19 +209,7 @@ public abstract class Gallium {
      * @return API version
      */
     public static String getVersion() {
-        return "1.0";
-    }
-
-    /**
-     * Get Minecraft server version
-     * @return Minecraft version
-     */
-    public static String getMinecraftVersion() {
-        if (instance == null) {
-            return "1.17.1";
-        } else {
-            return getNMS().getServerVersion();
-        }
+        return "1.1.0-beta.3";
     }
 
     /**
