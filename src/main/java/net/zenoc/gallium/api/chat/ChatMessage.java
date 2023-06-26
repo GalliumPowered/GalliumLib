@@ -1,5 +1,7 @@
 package net.zenoc.gallium.api.chat;
 
+import net.kyori.adventure.text.Component;
+
 import java.util.StringJoiner;
 
 public class ChatMessage {
@@ -8,8 +10,20 @@ public class ChatMessage {
         this.content = content;
     }
 
+    /**
+     * Gets content as a String
+     * @return Text as String
+     */
     public String getContent() {
         return content;
+    }
+
+    /**
+     * Gets content as a Component
+     * @return Text as component
+     */
+    public Component getAsComponent() {
+        return Component.text(content);
     }
 
     /**
