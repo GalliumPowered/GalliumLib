@@ -10,7 +10,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.Set;
 
-/**
+/*
  * Source LoomDev
  * https://github.com/LoomDev/Loom/blob/1.17.1/server/src/main/java/org/loomdev/loom/plugin/loader/PluginClassLoader.java
  */

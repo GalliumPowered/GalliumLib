@@ -14,6 +14,10 @@ public class PluginCommandManager {
         this.meta = meta;
     }
 
+    /**
+     * Register a command under the current container
+     * @param command An instance of a class which has a {@link Command} annotation
+     */
     public void registerCommand(Object command) {
         Gallium.getCommandManager().registerCommand(command, meta);
     }

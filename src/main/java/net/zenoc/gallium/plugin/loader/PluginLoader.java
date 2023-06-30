@@ -24,6 +24,12 @@ import java.util.Optional;
  */
 public class PluginLoader {
     private Logger log = LogManager.getLogger("Gallium/PluginLoader");
+
+    /**
+     * Loads a {@link File} as a {@link PluginContainer}
+     * @param jar The jar {@link File}
+     * @return {@link Optional} of a {@link PluginContainer} instance for the jar
+     */
     public Optional<PluginContainer> loadPlugin(@Nonnull File jar) {
         try {
             PluginClassLoader pluginClassLoader = new PluginClassLoader(jar.toPath());
@@ -47,6 +53,10 @@ public class PluginLoader {
         return Optional.empty();
     }
 
+    /**
+     * Unloads a {@link PluginContainer}
+     * @param container The {@link PluginContainer}
+     */
     public void unloadContainer(@Nonnull PluginContainer container) {
         container.setLifecycleState(PluginLifecycleState.DISABLED);
         Gallium.getPluginManager().removePlugin(container);
