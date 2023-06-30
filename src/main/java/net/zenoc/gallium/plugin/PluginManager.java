@@ -83,11 +83,14 @@ public class PluginManager {
      * Unload all plugins on the server
      */
     public void unloadPlugins() {
-        plugins.forEach(plugin -> {
+        Iterator it = plugins.iterator();
+        while (it.hasNext()) {
+            PluginContainer plugin = (PluginContainer) it.next();
             log.info("Unloading plugin {}", plugin.getMeta().getId());
             plugin.setLifecycleState(PluginLifecycleState.DISABLED);
             Gallium.getCommandManager().unregisterAllPluginCommands(plugin.getMeta());
-        });
+            removePlugin(plugin);
+        }
     }
 
     /**

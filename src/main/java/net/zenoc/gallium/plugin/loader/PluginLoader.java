@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.exceptions.BadPluginException;
+import net.zenoc.gallium.exceptions.PluginLoadFailException;
 import net.zenoc.gallium.plugin.PluginContainer;
 import net.zenoc.gallium.plugin.PluginLifecycleState;
 import net.zenoc.gallium.plugin.inject.modules.InjectPluginModule;
@@ -36,12 +37,27 @@ public class PluginLoader {
             Optional<PluginMeta> metaOptional = PluginMetaLoader.getPluginMetadata(jar);
             if (metaOptional.isPresent()) {
                 PluginMeta meta = metaOptional.get();
+
+                if (meta.getId().equals("gallium") || meta.getId().equals("minecraft")) {
+                    throw new BadPluginException("Plugin IDs 'gallium' and 'minecraft' are reserved!");
+                }
+
+                for (PluginContainer container : Gallium.getPluginManager().getLoadedPlugins()) {
+                    if (container.getMeta().getId().equals(meta.getId())) {
+                        throw new PluginLoadFailException("Plugin ID " + meta.getId() + " is already in use!");
+                    }
+                }
+
                 PluginContainer container = new PluginContainer();
+
                 container.setMeta(meta);
+
                 Injector injector = Guice.createInjector(new InjectPluginModule(container));
                 container.setInjector(injector);
+
                 Class<?> clazz = pluginClassLoader.loadClass(meta.getMainClass());
                 container.setInstance(injector.getInstance(clazz));
+
                 return Optional.of(container);
             } else {
                 log.error("{} does not seem to have metadata!");
