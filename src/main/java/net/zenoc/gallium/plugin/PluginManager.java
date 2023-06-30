@@ -1,10 +1,8 @@
 package net.zenoc.gallium.plugin;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import net.zenoc.gallium.Gallium;
-import net.zenoc.gallium.exceptions.BadPluginException;
 import net.zenoc.gallium.exceptions.PluginLoadFailException;
 import net.zenoc.gallium.internal.plugin.GalliumPlugin;
 import net.zenoc.gallium.plugin.inject.modules.InjectPluginModule;
@@ -82,10 +80,9 @@ public class PluginManager {
     /**
      * Unload all plugins on the server
      */
+    @SuppressWarnings("unchecked")
     public void unloadPlugins() {
-        Iterator it = plugins.iterator();
-        while (it.hasNext()) {
-            PluginContainer plugin = (PluginContainer) it.next();
+        for (PluginContainer plugin : (ArrayList<PluginContainer>) plugins.clone()) {
             log.info("Unloading plugin {}", plugin.getMeta().getId());
             plugin.setLifecycleState(PluginLifecycleState.DISABLED);
             Gallium.getCommandManager().unregisterAllPluginCommands(plugin.getMeta());
