@@ -48,6 +48,7 @@ public class ChatMessage {
      * @param content the message
      * @return ChatMessage
      */
+    @Deprecated
     public static ChatMessage fromString(String content) {
         return from(content);
     }

@@ -1,4 +1,4 @@
-package net.zenoc.gallium.plugin;
+package net.zenoc.gallium.plugin.metadata;
 
 public interface PluginMeta {
     /**

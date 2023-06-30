@@ -1,5 +1,7 @@
 package net.zenoc.gallium.plugin;
 
+import net.zenoc.gallium.plugin.metadata.PluginMeta;
+
 public class DefaultPluginMeta implements PluginMeta {
 
    private String name;
