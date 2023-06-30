@@ -13,6 +13,6 @@ public class PluginContainerProvider implements Provider<PluginContainer> {
     }
     @Override
     public PluginContainer get() {
-        return null;
+        return container;
     }
 }
