@@ -1,9 +1,9 @@
 package net.zenoc.gallium.internal.plugin.commands;
 
+import net.kyori.adventure.text.Component;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.Gamemode;
 import net.zenoc.gallium.api.annotations.Command;
-import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.api.chat.Colors;
 import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.commandsys.CommandContext;
@@ -20,7 +20,7 @@ public class GamemodeCommand {
         AtomicBoolean shouldContinue = new AtomicBoolean(true);
         ctx.ifPlayer(player -> {
             if (ctx.getCommandArgs().length == 1) {
-                ctx.getCaller().sendMessage(ChatMessage.from(Colors.LIGHT_RED + "/gamemode <survival|creative|adventure|spectator|0|1|2|3|s|c|a|sp> [player]"));
+                ctx.getCaller().sendMessage(Component.text(Colors.LIGHT_RED + "/gamemode <survival|creative|adventure|spectator|0|1|2|3|s|c|a|sp> [player]"));
                 shouldContinue.set(false);
                 return;
             }
@@ -29,7 +29,7 @@ public class GamemodeCommand {
             }
         }).ifConsole(console -> {
             if (ctx.getCommandArgs().length < 3) {
-                ctx.getCaller().sendMessage(ChatMessage.from(Colors.LIGHT_RED + "/gamemode <survival|creative|adventure|spectator|0|1|2|3|s|c|a|sp> <player>"));
+                ctx.getCaller().sendMessage(Component.text(Colors.LIGHT_RED + "/gamemode <survival|creative|adventure|spectator|0|1|2|3|s|c|a|sp> <player>"));
                 shouldContinue.set(false);
             }
         });
@@ -39,7 +39,7 @@ public class GamemodeCommand {
         if (target.get() == null) {
             String targetName = ctx.getCommandArgs()[2];
             Gallium.getNMSBridge().getPlayerByName(targetName).ifPresentOrElse(target::set, () -> {
-                ctx.getCaller().sendMessage(ChatMessage.from(Colors.LIGHT_RED + "Could not find that player!"));
+                ctx.getCaller().sendMessage(Component.text(Colors.LIGHT_RED + "Could not find that player!"));
                 shouldContinue.set(false);
             });
         }

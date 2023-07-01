@@ -1,8 +1,8 @@
 package net.zenoc.gallium.internal.plugin.commands.permissions;
 
+import net.kyori.adventure.text.Component;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.annotations.Command;
-import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.api.chat.Colors;
 import net.zenoc.gallium.commandsys.CommandCaller;
 import net.zenoc.gallium.commandsys.CommandContext;
@@ -25,29 +25,29 @@ public class PlayermodCommand {
         Gallium.getNMSBridge().getPlayerByName(args[1]).ifPresentOrElse(player -> {
             // /playermod <player>
             if (args.length == 2) {
-                caller.sendMessage(ChatMessage.from(Colors.GREEN + "--- Player Info ---"));
-                caller.sendMessage(ChatMessage.from(player.getPrefix() + player.getName()));
+                caller.sendMessage(Component.text(Colors.GREEN + "--- Player Info ---"));
+                caller.sendMessage(Component.text(player.getPrefix() + player.getName()));
                 player.getGroup().ifPresentOrElse(group -> {
-                    caller.sendMessage(ChatMessage.from("Group: " + group.getName()));
+                    caller.sendMessage(Component.text("Group: " + group.getName()));
                 }, () -> {
-                    caller.sendMessage(ChatMessage.from("Group: Not in a group"));
+                    caller.sendMessage(Component.text("Group: Not in a group"));
                 });
                 StringJoiner joiner = new StringJoiner(", ");
                 for (String permission : player.getPermissions()) {
                     joiner.add(permission);
                 }
                 if (joiner.length() == 0) {
-                    caller.sendMessage(ChatMessage.from("Permissions: No permissions"));
+                    caller.sendMessage(Component.text("Permissions: No permissions"));
                 } else {
-                    caller.sendMessage(ChatMessage.from("Permissions: " + joiner));
+                    caller.sendMessage(Component.text("Permissions: " + joiner));
                 }
 
-                ctx.getCaller().sendMessage(ChatMessage.from(Colors.GREEN + "--------------------"));
+                ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "--------------------"));
             } else if (args.length == 3) {
                 if (args[2].equalsIgnoreCase("ungroup")) {
                     try {
                         player.ungroup();
-                        caller.sendMessage(ChatMessage.from(Colors.GREEN + "Removed group from " + Colors.WHITE + player.getName()));
+                        caller.sendMessage(Component.text(Colors.GREEN + "Removed group from " + Colors.WHITE + player.getName()));
                     } catch (SQLException e) {
                         throw new GalliumDatabaseException(e);
                     }
@@ -61,10 +61,10 @@ public class PlayermodCommand {
                         for (Group group : Gallium.getGroupManager().getGroups()) {
                             if (group.getName().equalsIgnoreCase(groupName)) {
                                 player.setGroup(group);
-                                caller.sendMessage(ChatMessage.from(Colors.GREEN + "Set " + Colors.WHITE + player.getName() + Colors.GREEN + " group to " + Colors.WHITE + group.getName()));
+                                caller.sendMessage(Component.text(Colors.GREEN + "Set " + Colors.WHITE + player.getName() + Colors.GREEN + " group to " + Colors.WHITE + group.getName()));
                                 return;
                             }
-                            caller.sendMessage(ChatMessage.from(Colors.LIGHT_RED + "Could not find that group!"));
+                            caller.sendMessage(Component.text(Colors.LIGHT_RED + "Could not find that group!"));
                         }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -74,14 +74,14 @@ public class PlayermodCommand {
                     if (player.hasPermission(permission)) {
                         try {
                             player.removePermission(permission);
-                            caller.sendMessage(ChatMessage.from(Colors.GREEN + "Removed permission " + Colors.WHITE + permission + Colors.GREEN + " from " + Colors.WHITE + player.getName()));
+                            caller.sendMessage(Component.text(Colors.GREEN + "Removed permission " + Colors.WHITE + permission + Colors.GREEN + " from " + Colors.WHITE + player.getName()));
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
                     } else {
                         try {
                             player.addPermission(permission);
-                            caller.sendMessage(ChatMessage.from(Colors.GREEN + "Added permission " + Colors.WHITE + permission + Colors.GREEN + " to " + Colors.WHITE + player.getName()));
+                            caller.sendMessage(Component.text(Colors.GREEN + "Added permission " + Colors.WHITE + permission + Colors.GREEN + " to " + Colors.WHITE + player.getName()));
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -90,7 +90,7 @@ public class PlayermodCommand {
                     String prefix = args[3].replace("&", "§");
                     try {
                         player.setPrefix(prefix);
-                        caller.sendMessage(ChatMessage.from(Colors.GREEN + "Set " + Colors.WHITE + player.getName() + Colors.GREEN + "'s prefix to " + prefix));
+                        caller.sendMessage(Component.text(Colors.GREEN + "Set " + Colors.WHITE + player.getName() + Colors.GREEN + "'s prefix to " + prefix));
                     } catch (SQLException e) {
                         throw new GalliumDatabaseException(e);
                     }
@@ -98,10 +98,10 @@ public class PlayermodCommand {
                     sendUsage(caller);
                 }
             }
-        }, () -> caller.sendMessage(ChatMessage.from(Colors.LIGHT_RED + "Could not find that player")));
+        }, () -> caller.sendMessage(Component.text(Colors.LIGHT_RED + "Could not find that player")));
     }
 
     private void sendUsage(CommandCaller caller) {
-        caller.sendMessage(ChatMessage.from(Colors.LIGHT_RED + "/playermod <player> [<group|ungroup|permission|prefix> <group|permission>]"));
+        caller.sendMessage(Component.text(Colors.LIGHT_RED + "/playermod <player> [<group|ungroup|permission|prefix> <group|permission>]"));
     }
 }

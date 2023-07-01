@@ -1,7 +1,7 @@
 package net.zenoc.gallium.world.entity;
 
+import net.kyori.adventure.text.Component;
 import net.zenoc.gallium.api.Gamemode;
-import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.chat.Colors;
 import net.zenoc.gallium.permissionsys.Group;
@@ -37,16 +37,16 @@ public interface Player extends Entity {
     }
 
     /**
-     * Send a message to the player
-     * @param message a {@link ChatMessage}
+     * Sends a message to the player
+     * @param component A component
      */
-    void sendMessage(ChatMessage message);
+    void sendMessage(Component component);
 
     /**
      * Disconnect the player
      * @param reason the reason for disconnecting them
      */
-    void disconnect(ChatMessage reason);
+    void disconnect(Component component);
 
     /**
      * Disconnect the player

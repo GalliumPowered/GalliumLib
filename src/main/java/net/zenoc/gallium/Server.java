@@ -1,6 +1,6 @@
 package net.zenoc.gallium;
 
-import net.zenoc.gallium.api.chat.ChatMessage;
+import net.kyori.adventure.text.Component;
 import net.zenoc.gallium.world.entity.Player;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public interface Server {
      * Send a message to everyone online
      * @param message message to send
      */
-    default void sendMsgToAll(ChatMessage message) {
-        getOnlinePlayers().forEach(player -> player.sendMessage(message));
+    default void sendMsgToAll(Component component) {
+        getOnlinePlayers().forEach(player -> player.sendMessage(component));
     }
 }
