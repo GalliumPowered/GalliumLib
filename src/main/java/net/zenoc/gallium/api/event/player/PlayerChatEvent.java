@@ -1,6 +1,6 @@
 package net.zenoc.gallium.api.event.player;
 
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 
 public class PlayerChatEvent extends PlayerEvent {
     private String content;

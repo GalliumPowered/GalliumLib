@@ -1,6 +1,6 @@
 package net.zenoc.gallium.bridge;
 
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 
 import java.util.Optional;
 

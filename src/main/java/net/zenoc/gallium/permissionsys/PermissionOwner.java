@@ -1,6 +1,6 @@
 package net.zenoc.gallium.permissionsys;
 
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 
 public class PermissionOwner {
     String name;

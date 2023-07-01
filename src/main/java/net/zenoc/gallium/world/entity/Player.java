@@ -1,6 +1,5 @@
-package net.zenoc.gallium.api.world.entity;
+package net.zenoc.gallium.world.entity;
 
-import net.kyori.adventure.text.Component;
 import net.zenoc.gallium.api.Gamemode;
 import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.Gallium;
@@ -12,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public interface Player extends Entity {
     /**

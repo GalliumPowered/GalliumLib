@@ -2,7 +2,7 @@ package net.zenoc.gallium.database;
 
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.chat.Colors;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.exceptions.GalliumDatabaseException;
 import net.zenoc.gallium.permissionsys.Group;
 import net.zenoc.gallium.permissionsys.GroupManager;

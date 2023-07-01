@@ -1,4 +1,4 @@
-package net.zenoc.gallium.api.world.entity;
+package net.zenoc.gallium.world.entity;
 
 public interface Entity {
 

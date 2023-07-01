@@ -1,4 +1,4 @@
-package net.zenoc.gallium.api.world;
+package net.zenoc.gallium.world;
 
 public interface World {
     enum Difficulty {

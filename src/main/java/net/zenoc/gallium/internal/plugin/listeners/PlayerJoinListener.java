@@ -2,7 +2,7 @@ package net.zenoc.gallium.internal.plugin.listeners;
 
 import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.annotations.EventListener;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.api.event.player.PlayerJoinEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

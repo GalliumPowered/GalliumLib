@@ -4,7 +4,6 @@ import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.annotations.Command;
 import net.zenoc.gallium.api.chat.ChatMessage;
 import net.zenoc.gallium.api.chat.Colors;
-import net.zenoc.gallium.api.world.entity.Player;
 import net.zenoc.gallium.commandsys.CommandCaller;
 import net.zenoc.gallium.commandsys.CommandContext;
 import net.zenoc.gallium.exceptions.GalliumDatabaseException;

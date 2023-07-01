@@ -1,8 +1,7 @@
 package net.zenoc.gallium;
 
-import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.chat.ChatMessage;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 
 import java.util.ArrayList;
 

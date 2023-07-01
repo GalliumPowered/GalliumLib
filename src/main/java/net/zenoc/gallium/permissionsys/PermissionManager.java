@@ -1,7 +1,7 @@
 package net.zenoc.gallium.permissionsys;
 
 import net.zenoc.gallium.Gallium;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 import net.zenoc.gallium.exceptions.GalliumDatabaseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,7 +1,6 @@
 package net.zenoc.gallium.api.event.player;
 
-import net.zenoc.gallium.api.event.CancelableEvent;
-import net.zenoc.gallium.api.world.entity.Player;
+import net.zenoc.gallium.world.entity.Player;
 
 /**
  * A player join event
