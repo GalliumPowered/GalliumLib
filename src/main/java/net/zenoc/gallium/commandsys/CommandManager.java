@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandManager {
     private HashMap<String, MCommand> commands = new HashMap<>();
     private ConcurrentHashMap<String, PluginMeta> pluginCommands = new ConcurrentHashMap<>();
+    private HashMap<MCommand, MCommand> subcommands = new HashMap<>();
 
     public CommandManager() {
 
@@ -32,15 +33,20 @@ public class CommandManager {
     }
 
     private void doRegister(MCommand cmd, PluginMeta meta) {
-        for (String alias : cmd.getCommand().aliases()) {
-            Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms());
-            Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
+        if (!cmd.getCommand().parent().equals("")) {
+            // Subcommand
+            subcommands.put(commands.get(cmd.getCommand().parent()), cmd);
+        } else {
+            for (String alias : cmd.getCommand().aliases()) {
+                Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms());
+                Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
 
-            commands.put(meta.getId() + ":" + alias, cmd);
-            commands.put(alias, cmd);
+                commands.put(meta.getId() + ":" + alias, cmd);
+                commands.put(alias, cmd);
 
-            pluginCommands.put(meta.getId() + ":" + alias, meta);
-            pluginCommands.put(alias, meta);
+                pluginCommands.put(meta.getId() + ":" + alias, meta);
+                pluginCommands.put(alias, meta);
+            }
         }
     }
 
@@ -59,5 +65,9 @@ public class CommandManager {
 
     public HashMap<String, MCommand> getCommands() {
         return commands;
+    }
+
+    public HashMap<MCommand, MCommand> getSubcommands() {
+        return subcommands;
     }
 }

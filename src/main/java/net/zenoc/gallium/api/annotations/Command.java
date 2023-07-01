@@ -9,6 +9,11 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
     /**
+     * Parent of the command. Used for subcommands
+     * @return Command parent
+     */
+    String parent() default "";
+    /**
      * Command aliases
      */
     String[] aliases();

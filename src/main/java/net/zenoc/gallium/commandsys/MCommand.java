@@ -1,8 +1,14 @@
 package net.zenoc.gallium.commandsys;
 
+import net.zenoc.gallium.Gallium;
 import net.zenoc.gallium.api.annotations.Command;
 
 import java.lang.reflect.Method;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class MCommand {
     Command command;
@@ -34,5 +40,20 @@ public class MCommand {
      */
     public Method getMethod() {
         return method;
+    }
+
+    public List<String> suggest(CommandContext ctx) {
+        List<String> subcmdNames = new ArrayList<>();
+        Gallium.getCommandManager().getSubcommands().forEach((parent, sub) -> {
+            if (parent == this) {
+                AtomicBoolean canExec = new AtomicBoolean(false);
+                ctx.ifConsole(caller -> canExec.set(true));
+                ctx.ifPlayer(player -> canExec.set(player.hasPermission(sub.getCommand().neededPerms())));
+                if (canExec.get()) {
+                    subcmdNames.addAll(Arrays.asList(sub.getCommand().aliases()));
+                }
+            }
+        });
+        return subcmdNames;
     }
 }
