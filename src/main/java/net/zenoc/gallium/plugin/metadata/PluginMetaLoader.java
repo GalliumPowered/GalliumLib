@@ -40,7 +40,7 @@ public class PluginMetaLoader {
                 JSONObject json = new JSONObject(tokener);
 
                 String name = json.getString("name");
-                String id = json.getString("id");
+                String id = json.getString("id").toLowerCase();
                 String description = json.getString("description");
                 String version = json.getString("version");
 
@@ -77,6 +77,6 @@ public class PluginMetaLoader {
 
     public static PluginMeta getPluginMetaFromAnnotation(Class<?> javaPluginClass) {
         net.zenoc.gallium.api.annotations.Plugin plugin = javaPluginClass.getAnnotation(net.zenoc.gallium.api.annotations.Plugin.class);
-        return new DefaultPluginMeta(plugin.name(), plugin.id(), plugin.description(), plugin.authors(), plugin.version(), javaPluginClass.getName());
+        return new DefaultPluginMeta(plugin.name(), plugin.id().toLowerCase(), plugin.description(), plugin.authors(), plugin.version(), javaPluginClass.getName());
     }
 }

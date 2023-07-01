@@ -42,6 +42,10 @@ public class PluginLoader {
                     throw new BadPluginException("Plugin IDs 'gallium' and 'minecraft' are reserved!");
                 }
 
+                if (meta.getId().contains(" ")) {
+                    throw new BadPluginException("Plugin IDs should not contain spaces! Found: " + meta.getId());
+                }
+
                 for (PluginContainer container : Gallium.getPluginManager().getLoadedPlugins()) {
                     if (container.getMeta().getId().equals(meta.getId())) {
                         throw new PluginLoadFailException("Plugin ID " + meta.getId() + " is already in use!");
