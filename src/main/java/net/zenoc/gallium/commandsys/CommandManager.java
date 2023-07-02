@@ -38,8 +38,7 @@ public class CommandManager {
             subcommands.put(commands.get(cmd.getCommand().parent()), cmd);
         } else {
             for (String alias : cmd.getCommand().aliases()) {
-                Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms());
-                Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
+                internalRegister(alias, cmd, meta);
 
                 commands.put(meta.getId() + ":" + alias, cmd);
                 commands.put(alias, cmd);
@@ -47,6 +46,17 @@ public class CommandManager {
                 pluginCommands.put(meta.getId() + ":" + alias, meta);
                 pluginCommands.put(alias, meta);
             }
+        }
+    }
+
+    private void internalRegister(String alias, MCommand cmd, PluginMeta meta) {
+        if (cmd.getCommand().args().length == 0) {
+            Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms());
+            Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
+        } else {
+            // FIXME: Multiple args
+            Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms(), cmd.getCommand().args());
+            Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms(), cmd.getCommand().args());
         }
     }
 

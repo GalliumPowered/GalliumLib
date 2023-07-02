@@ -28,4 +28,6 @@ public @interface Command {
      * TODO-ish
      */
     String neededPerms() default "NONE";
+
+    Args[] args() default {};
 }

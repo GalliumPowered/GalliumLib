@@ -11,6 +11,7 @@ import net.zenoc.gallium.internal.plugin.commands.plugin.PluginInfoCommand;
 import net.zenoc.gallium.internal.plugin.commands.plugin.PluginListCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.GroupmodCommand;
 import net.zenoc.gallium.internal.plugin.commands.permissions.PlayermodCommand;
+import net.zenoc.gallium.internal.plugin.commands.testing.TestCommand;
 import net.zenoc.gallium.internal.plugin.listeners.PlayerJoinListener;
 import net.zenoc.gallium.api.annotations.Plugin;
 import net.zenoc.gallium.plugin.PluginLifecycleState;
@@ -30,6 +31,7 @@ public class GalliumPlugin {
 
     @PluginLifecycleListener(PluginLifecycleState.ENABLED)
     public void onPluginEnable() {
+
         // Command registration
         commandManager.registerCommand(new GalliumCommand());
         commandManager.registerCommand(new PluginListCommand());
@@ -38,6 +40,7 @@ public class GalliumPlugin {
         commandManager.registerCommand(new GroupmodCommand());
         commandManager.registerCommand(new GamemodeCommand());
         commandManager.registerCommand(new PluginInfoCommand());
+        commandManager.registerCommand(new TestCommand());
 
         // Listener registration
         Gallium.getEventManager().registerEvent(new PlayerJoinListener());
