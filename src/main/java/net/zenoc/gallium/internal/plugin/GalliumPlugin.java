@@ -40,7 +40,7 @@ public class GalliumPlugin {
         commandManager.registerCommand(new GroupmodCommand());
         commandManager.registerCommand(new GamemodeCommand());
         commandManager.registerCommand(new PluginInfoCommand());
-        commandManager.registerCommand(new TestCommand());
+//        commandManager.registerCommand(new TestCommand());
 
         // Listener registration
         Gallium.getEventManager().registerEvent(new PlayerJoinListener());
