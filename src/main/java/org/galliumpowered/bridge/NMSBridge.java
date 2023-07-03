@@ -1,0 +1,19 @@
+package org.galliumpowered.bridge;
+
+import org.galliumpowered.api.annotations.Args;
+import org.galliumpowered.world.entity.Player;
+
+import java.util.Optional;
+
+/**
+ * For bridging NMS to lib
+ */
+public interface NMSBridge {
+    void registerCommand(String alias, String permission);
+
+    void registerCommand(String alias, String permission, Args[] args);
+
+    Optional<Player> getPlayerByName(String name);
+
+    String getServerVersion();
+}
