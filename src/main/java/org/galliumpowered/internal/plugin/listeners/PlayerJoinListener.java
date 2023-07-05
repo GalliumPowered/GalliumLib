@@ -1,9 +1,9 @@
 package org.galliumpowered.internal.plugin.listeners;
 
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.annotations.EventListener;
+import org.galliumpowered.annotation.EventListener;
 import org.galliumpowered.world.entity.Player;
-import org.galliumpowered.api.event.player.PlayerJoinEvent;
+import org.galliumpowered.event.player.PlayerJoinEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

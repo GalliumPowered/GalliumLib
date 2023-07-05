@@ -1,11 +1,11 @@
 package org.galliumpowered.world.entity;
 
 import net.kyori.adventure.text.Component;
-import org.galliumpowered.api.Gamemode;
+import org.galliumpowered.Gamemode;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.chat.Colors;
-import org.galliumpowered.permissionsys.Group;
-import org.galliumpowered.permissionsys.PermissionOwner;
+import org.galliumpowered.chat.Colors;
+import org.galliumpowered.permission.Group;
+import org.galliumpowered.permission.PermissionOwner;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package org.galliumpowered.bridge;
 
-import org.galliumpowered.api.annotations.Args;
+import org.galliumpowered.annotation.Args;
 import org.galliumpowered.world.entity.Player;
 
 import java.util.Optional;

@@ -1,10 +1,10 @@
 package org.galliumpowered.internal.plugin.commands.testing;
 
 import net.kyori.adventure.text.Component;
-import org.galliumpowered.api.annotations.Args;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.commandsys.CommandContext;
-import org.galliumpowered.commandsys.args.ArgumentType;
+import org.galliumpowered.annotation.Args;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.command.CommandContext;
+import org.galliumpowered.command.args.ArgumentType;
 
 public class TestCommand {
     @Command(

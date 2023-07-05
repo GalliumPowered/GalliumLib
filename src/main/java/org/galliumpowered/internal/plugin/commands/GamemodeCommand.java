@@ -2,11 +2,11 @@ package org.galliumpowered.internal.plugin.commands;
 
 import net.kyori.adventure.text.Component;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.Gamemode;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.api.chat.Colors;
+import org.galliumpowered.Gamemode;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.chat.Colors;
 import org.galliumpowered.world.entity.Player;
-import org.galliumpowered.commandsys.CommandContext;
+import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.util.NumberUtils;
 
 import java.util.concurrent.atomic.AtomicBoolean;

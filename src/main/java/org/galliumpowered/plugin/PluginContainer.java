@@ -1,7 +1,7 @@
 package org.galliumpowered.plugin;
 
 import com.google.inject.Injector;
-import org.galliumpowered.api.annotations.PluginLifecycleListener;
+import org.galliumpowered.annotation.PluginLifecycleListener;
 import org.galliumpowered.exceptions.PluginLoadFailException;
 import org.galliumpowered.plugin.metadata.PluginMeta;
 import org.apache.logging.log4j.LogManager;

@@ -1,12 +1,12 @@
 package org.galliumpowered.database;
 
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.chat.Colors;
+import org.galliumpowered.chat.Colors;
 import org.galliumpowered.world.entity.Player;
 import org.galliumpowered.exceptions.GalliumDatabaseException;
-import org.galliumpowered.permissionsys.Group;
-import org.galliumpowered.permissionsys.GroupManager;
-import org.galliumpowered.permissionsys.PermissionOwner;
+import org.galliumpowered.permission.Group;
+import org.galliumpowered.permission.GroupManager;
+import org.galliumpowered.permission.PermissionOwner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.nullness.qual.Nullable;

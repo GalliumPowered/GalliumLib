@@ -4,9 +4,9 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.chat.Colors;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.commandsys.CommandContext;
+import org.galliumpowered.chat.Colors;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.command.CommandContext;
 import org.galliumpowered.plugin.metadata.PluginMeta;
 
 public class PluginListCommand {

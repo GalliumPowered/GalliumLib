@@ -2,11 +2,11 @@ package org.galliumpowered.internal.plugin.commands.permissions;
 
 import net.kyori.adventure.text.Component;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.api.chat.Colors;
-import org.galliumpowered.commandsys.CommandCaller;
-import org.galliumpowered.commandsys.CommandContext;
-import org.galliumpowered.permissionsys.Group;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.chat.Colors;
+import org.galliumpowered.command.CommandCaller;
+import org.galliumpowered.command.CommandContext;
+import org.galliumpowered.permission.Group;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

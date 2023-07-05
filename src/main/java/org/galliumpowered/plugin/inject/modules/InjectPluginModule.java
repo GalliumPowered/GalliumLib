@@ -1,7 +1,7 @@
 package org.galliumpowered.plugin.inject.modules;
 
 import com.google.inject.AbstractModule;
-import org.galliumpowered.commandsys.PluginCommandManager;
+import org.galliumpowered.command.PluginCommandManager;
 import org.galliumpowered.plugin.PluginContainer;
 import org.galliumpowered.plugin.inject.providers.PluginCommandManagerProvider;
 import org.galliumpowered.plugin.inject.providers.PluginContainerProvider;

@@ -1,6 +1,6 @@
 package org.galliumpowered.plugin.metadata;
 
-import org.galliumpowered.api.annotations.Plugin;
+import org.galliumpowered.annotation.Plugin;
 import org.galliumpowered.exceptions.BadPluginException;
 import org.galliumpowered.plugin.DefaultPluginMeta;
 import org.json.JSONArray;

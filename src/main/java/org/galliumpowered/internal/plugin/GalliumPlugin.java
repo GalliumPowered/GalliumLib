@@ -2,8 +2,8 @@ package org.galliumpowered.internal.plugin;
 
 import com.google.inject.Inject;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.annotations.PluginLifecycleListener;
-import org.galliumpowered.commandsys.PluginCommandManager;
+import org.galliumpowered.annotation.PluginLifecycleListener;
+import org.galliumpowered.command.PluginCommandManager;
 import org.galliumpowered.internal.plugin.commands.GalliumCommand;
 import org.galliumpowered.internal.plugin.commands.GamemodeCommand;
 import org.galliumpowered.internal.plugin.commands.PingCommand;
@@ -12,7 +12,7 @@ import org.galliumpowered.internal.plugin.commands.plugin.PluginListCommand;
 import org.galliumpowered.internal.plugin.commands.permissions.GroupmodCommand;
 import org.galliumpowered.internal.plugin.commands.permissions.PlayermodCommand;
 import org.galliumpowered.internal.plugin.listeners.PlayerJoinListener;
-import org.galliumpowered.api.annotations.Plugin;
+import org.galliumpowered.annotation.Plugin;
 import org.galliumpowered.plugin.PluginLifecycleState;
 import org.apache.logging.log4j.Logger;
 

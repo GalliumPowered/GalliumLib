@@ -1,8 +1,8 @@
 package org.galliumpowered.internal.plugin.commands;
 
 import net.kyori.adventure.text.Component;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.commandsys.CommandContext;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.command.CommandContext;
 
 public class PingCommand {
     @Command(aliases = {"ping"}, description = "Pong")

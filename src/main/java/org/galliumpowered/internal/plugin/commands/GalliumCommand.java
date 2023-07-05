@@ -2,9 +2,9 @@ package org.galliumpowered.internal.plugin.commands;
 
 import net.kyori.adventure.text.Component;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.api.chat.Colors;
-import org.galliumpowered.commandsys.CommandContext;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.chat.Colors;
+import org.galliumpowered.command.CommandContext;
 
 public class GalliumCommand {
     @Command(aliases = {"gallium"}, description = "Information about Gallium")

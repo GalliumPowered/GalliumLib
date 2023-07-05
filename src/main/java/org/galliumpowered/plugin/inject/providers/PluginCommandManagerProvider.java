@@ -1,7 +1,7 @@
 package org.galliumpowered.plugin.inject.providers;
 
 import com.google.inject.Provider;
-import org.galliumpowered.commandsys.PluginCommandManager;
+import org.galliumpowered.command.PluginCommandManager;
 import org.galliumpowered.plugin.metadata.PluginMeta;
 
 public class PluginCommandManagerProvider implements Provider<PluginCommandManager> {

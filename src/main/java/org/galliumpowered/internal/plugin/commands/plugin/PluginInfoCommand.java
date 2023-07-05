@@ -2,11 +2,11 @@ package org.galliumpowered.internal.plugin.commands.plugin;
 
 import net.kyori.adventure.text.Component;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.api.annotations.Args;
-import org.galliumpowered.api.annotations.Command;
-import org.galliumpowered.api.chat.Colors;
-import org.galliumpowered.commandsys.CommandContext;
-import org.galliumpowered.commandsys.args.ArgumentType;
+import org.galliumpowered.annotation.Args;
+import org.galliumpowered.annotation.Command;
+import org.galliumpowered.chat.Colors;
+import org.galliumpowered.command.CommandContext;
+import org.galliumpowered.command.args.ArgumentType;
 
 public class PluginInfoCommand {
     @Command(aliases = {"plugininfo"}, description = "Show information about a plugin", neededPerms = "PLUGINS", args = @Args(type = ArgumentType.SINGLE, name = "plugin"))
