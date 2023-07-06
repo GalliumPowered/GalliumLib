@@ -44,7 +44,7 @@ public interface Player extends Entity {
 
     /**
      * Disconnect the player
-     * @param reason the reason for disconnecting them
+     * @param component The reason for disconnecting them
      */
     void disconnect(Component component);
 

@@ -29,7 +29,7 @@ public interface Server {
 
     /**
      * Send a message to everyone online
-     * @param message message to send
+     * @param component The message to send
      */
     default void sendMsgToAll(Component component) {
         getOnlinePlayers().forEach(player -> player.sendMessage(component));
