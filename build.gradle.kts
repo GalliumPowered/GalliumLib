@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "net.zenoc.gallium"
-version = "1.1.0-beta.3"
+version = "1.1.0-beta.4"
 
 repositories {
     mavenCentral()
