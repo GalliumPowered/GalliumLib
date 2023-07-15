@@ -100,4 +100,13 @@ public class PluginContainer {
     public Logger getLogger() {
         return log;
     }
+
+
+    /**
+     * Get the {@link PluginLifecycleState}
+     * @return Plugin lifecycle state
+     */
+    public PluginLifecycleState getLifecycleState() {
+        return state;
+    }
 }
