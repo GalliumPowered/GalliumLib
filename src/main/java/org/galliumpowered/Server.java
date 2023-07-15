@@ -12,14 +12,14 @@ public interface Server {
      *
      * @return number of {@link Player}s online
      */
-    int currentPlayerCount();
+    int getCurrentPlayerCount();
 
     /**
      * Get the maximum number of players that can be on the server
      *
      * @return number max {@link Player}s
      */
-    int maxPlayerCount();
+    int getMaxPlayerCount();
 
     /**
      * Get all the online players

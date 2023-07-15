@@ -76,6 +76,7 @@ public class PluginLoader {
      */
     public void unloadContainer(@Nonnull PluginContainer container) {
         container.setLifecycleState(PluginLifecycleState.DISABLED);
+        Gallium.getCommandManager().unregisterAllPluginCommands(container.getMeta());
         Gallium.getPluginManager().removePlugin(container);
     }
 }

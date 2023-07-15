@@ -84,9 +84,7 @@ public class PluginManager {
     public void unloadPlugins() {
         for (PluginContainer plugin : (ArrayList<PluginContainer>) plugins.clone()) {
             log.info("Unloading plugin {}", plugin.getMeta().getId());
-            plugin.setLifecycleState(PluginLifecycleState.DISABLED);
-            Gallium.getCommandManager().unregisterAllPluginCommands(plugin.getMeta());
-            removePlugin(plugin);
+            javaPluginLoader.unloadContainer(plugin);
         }
     }
 
