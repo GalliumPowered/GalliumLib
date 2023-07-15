@@ -92,4 +92,12 @@ public class PluginContainer {
                     }
                 });
     }
+
+    /**
+     * Return a plugin logger
+     * @return {@link Logger} for the plugin container
+     */
+    public Logger getLogger() {
+        return log;
+    }
 }
