@@ -1,6 +1,6 @@
 package org.galliumpowered.exceptions;
 
-public class PluginLoadFailException extends RuntimeException {
+public class PluginLoadFailException extends PluginException {
     public PluginLoadFailException() {
         super();
     }

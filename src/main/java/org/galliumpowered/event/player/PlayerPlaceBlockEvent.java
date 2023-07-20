@@ -1,11 +1,12 @@
 package org.galliumpowered.event.player;
 
 import org.galliumpowered.world.block.Block;
+import org.galliumpowered.world.block.WorldBlock;
 import org.galliumpowered.world.entity.Player;
 
 public class PlayerPlaceBlockEvent extends PlayerEvent {
     private Player player;
-    private Block block;
+    private WorldBlock block;
 
     /**
      * A player break block event
@@ -13,13 +14,13 @@ public class PlayerPlaceBlockEvent extends PlayerEvent {
      * @param player The player
      * @param block The block
      */
-    public PlayerPlaceBlockEvent(Player player, Block block) {
+    public PlayerPlaceBlockEvent(Player player, WorldBlock block) {
         super(player);
         this.player = player;
         this.block = block;
     }
 
-    public Block getBlock() {
+    public WorldBlock getBlock() {
         return block;
     }
 }
