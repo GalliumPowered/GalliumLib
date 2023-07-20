@@ -1,6 +1,6 @@
 package org.galliumpowered.exceptions;
 
-public class BadPluginException extends RuntimeException {
+public class BadPluginException extends PluginException {
     public BadPluginException(String msg) {
         super(msg);
     }
