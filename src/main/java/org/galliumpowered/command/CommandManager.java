@@ -23,6 +23,8 @@ public class CommandManager {
     public void registerCommand(Object command, PluginMeta meta) {
         Arrays.stream(command.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(Command.class))
+            .filter(method -> method.getParameters().length == 1)
+            .filter(method -> method.getParameterTypes()[0] == CommandContext.class)
             .map(method -> new MCommand(method.getAnnotation(Command.class), command, method))
             .forEach(cmd -> doRegister(cmd, meta));
     }

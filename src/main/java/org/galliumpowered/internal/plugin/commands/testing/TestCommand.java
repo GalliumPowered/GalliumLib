@@ -1,6 +1,7 @@
 package org.galliumpowered.internal.plugin.commands.testing;
 
 import net.kyori.adventure.text.Component;
+import org.galliumpowered.Gallium;
 import org.galliumpowered.annotation.Args;
 import org.galliumpowered.annotation.Command;
 import org.galliumpowered.command.CommandContext;
@@ -48,5 +49,15 @@ public class TestCommand {
         ctx.getArgument("helo1").ifPresent(helo1 -> {
             ctx.getCaller().sendMessage(Component.text(helo1));
         });
+    }
+
+    @Command(aliases = "test5", description = "Command without any params")
+    public void test5Command() {
+
+    }
+
+    @Command(aliases = "test6", description = "Command with incorrect param types")
+    public void test6Command(Gallium gallium) {
+
     }
 }
