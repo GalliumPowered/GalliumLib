@@ -2,6 +2,7 @@ package org.galliumpowered.plugin;
 
 import com.google.inject.Injector;
 import org.galliumpowered.annotation.PluginLifecycleListener;
+import org.galliumpowered.exceptions.PluginException;
 import org.galliumpowered.exceptions.PluginLoadFailException;
 import org.galliumpowered.plugin.metadata.PluginMeta;
 import org.apache.logging.log4j.LogManager;
@@ -88,7 +89,7 @@ public class PluginContainer {
                     try {
                         method.invoke(instance);
                     } catch (Exception e) {
-                        throw new PluginLoadFailException(e);
+                        throw new PluginException(e);
                     }
                 });
     }

@@ -7,9 +7,21 @@ import java.util.Optional;
 
 public interface CommandCaller {
 
+    /**
+     * An optional of a player. Returns a {@link Player} optional if present.
+     * @return Player optional
+     */
     Optional<Player> getPlayer();
 
-    default void sendMessage(Component component) {
-        this.getPlayer().ifPresentOrElse(player -> player.sendMessage(component), () -> System.out.println(component));
-    }
+    /**
+     * Send a message to the command caller
+     * @param component Message to send
+     */
+    void sendMessage(Component component);
+
+    /**
+     * Send a message to the command caller
+     * @param message Message to send
+     */
+    void sendMessage(String message);
 }
