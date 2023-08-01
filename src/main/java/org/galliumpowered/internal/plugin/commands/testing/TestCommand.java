@@ -60,4 +60,13 @@ public class TestCommand {
     public void test6Command(Gallium gallium) {
 
     }
+
+    @Command(aliases = "test7", description = "Testing ifPlayer and ifConsole")
+    public void test7Command(CommandContext ctx) {
+        ctx.ifPlayer(player -> {
+            player.sendMessage("Hey, you're a player!");
+        }).ifConsole(console -> {
+            console.sendMessage("You're the console!");
+        });
+    }
 }

@@ -1,5 +1,6 @@
 package org.galliumpowered.command;
 
+import org.galliumpowered.command.console.ConsoleCommandCaller;
 import org.galliumpowered.world.entity.Player;
 
 import java.util.Optional;
@@ -19,7 +20,7 @@ public interface CommandContext {
     String[] getCommandArgs();
     CommandContext ifPlayer(Consumer<Player> consumer);
 
-    CommandContext ifConsole(Consumer<CommandCaller> consumer);
+    CommandContext ifConsole(Consumer<ConsoleCommandCaller> consumer);
 
     Optional<String> getArgument(String name);
 }
