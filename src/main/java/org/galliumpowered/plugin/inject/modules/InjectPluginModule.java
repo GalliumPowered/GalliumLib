@@ -1,9 +1,7 @@
 package org.galliumpowered.plugin.inject.modules;
 
 import com.google.inject.AbstractModule;
-import org.galliumpowered.command.PluginCommandManager;
 import org.galliumpowered.plugin.PluginContainer;
-import org.galliumpowered.plugin.inject.providers.PluginCommandManagerProvider;
 import org.galliumpowered.plugin.inject.providers.PluginContainerProvider;
 import org.galliumpowered.plugin.inject.providers.PluginLoggerProvider;
 import org.apache.logging.log4j.Logger;
@@ -16,8 +14,7 @@ public class InjectPluginModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(Logger.class).toProvider(new PluginLoggerProvider(container.getMeta()));
-        bind(PluginCommandManager.class).toProvider(new PluginCommandManagerProvider(container.getMeta()));
+        bind(Logger.class).toProvider(new PluginLoggerProvider(container.getMetadata()));
         bind(PluginContainer.class).toProvider(new PluginContainerProvider(container));
     }
 }

@@ -2,7 +2,8 @@ package org.galliumpowered.command;
 
 import org.galliumpowered.annotation.Command;
 import org.galliumpowered.Gallium;
-import org.galliumpowered.plugin.metadata.PluginMeta;
+import org.galliumpowered.plugin.PluginContainer;
+import org.galliumpowered.plugin.metadata.PluginMetadata;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,17 +11,24 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager {
     private HashMap<String, MCommand> commands = new HashMap<>();
-    private ConcurrentHashMap<String, PluginMeta> pluginCommands = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, PluginMetadata> pluginCommands = new ConcurrentHashMap<>();
     private HashMap<MCommand, MCommand> subcommands = new HashMap<>();
 
-    public CommandManager() {
-
+    /**
+     * Register a command on the server
+     * @param command A class instance containing a {@link Command} annotation.
+     * @param plugin A {@link PluginContainer} instance
+     */
+    public void registerCommand(Object command, PluginContainer plugin) {
+        registerCommand(command, plugin.getMetadata());
     }
 
     /**
      * Register a command on the server
+     * @param command A class instance containing a {@link Command} annotation.
+     * @param meta A {@link PluginMetadata} instance
      */
-    public void registerCommand(Object command, PluginMeta meta) {
+    public void registerCommand(Object command, PluginMetadata meta) {
         Arrays.stream(command.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(Command.class))
             .filter(method -> method.getParameters().length == 1)
@@ -29,7 +37,7 @@ public class CommandManager {
             .forEach(cmd -> doRegister(cmd, meta));
     }
 
-    private void doRegister(MCommand cmd, PluginMeta meta) {
+    private void doRegister(MCommand cmd, PluginMetadata meta) {
         if (!cmd.getCommand().parent().equals("")) {
             // Subcommand
             subcommands.put(commands.get(cmd.getCommand().parent()), cmd);
@@ -46,7 +54,7 @@ public class CommandManager {
         }
     }
 
-    private void internalRegister(String alias, MCommand cmd, PluginMeta meta) {
+    private void internalRegister(String alias, MCommand cmd, PluginMetadata meta) {
         if (cmd.getCommand().args().length == 0) {
             Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms());
             Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
@@ -62,7 +70,7 @@ public class CommandManager {
         pluginCommands.remove(alias);
     }
 
-    public void unregisterAllPluginCommands(PluginMeta meta) {
+    public void unregisterAllPluginCommands(PluginMetadata meta) {
         for (String alias : pluginCommands.keySet()) {
             if (pluginCommands.get(alias) == meta) {
                 unregisterCommand(alias);

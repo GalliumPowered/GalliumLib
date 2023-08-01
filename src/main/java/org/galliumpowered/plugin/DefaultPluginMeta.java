@@ -1,8 +1,8 @@
 package org.galliumpowered.plugin;
 
-import org.galliumpowered.plugin.metadata.PluginMeta;
+import org.galliumpowered.plugin.metadata.PluginMetadata;
 
-public class DefaultPluginMeta implements PluginMeta {
+public class DefaultPluginMeta implements PluginMetadata {
 
    private String name;
    private String id;

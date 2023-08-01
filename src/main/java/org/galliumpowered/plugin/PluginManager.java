@@ -6,8 +6,8 @@ import org.galliumpowered.Gallium;
 import org.galliumpowered.exceptions.PluginLoadFailException;
 import org.galliumpowered.internal.plugin.GalliumPlugin;
 import org.galliumpowered.plugin.inject.modules.InjectPluginModule;
-import org.galliumpowered.plugin.metadata.PluginMeta;
-import org.galliumpowered.plugin.metadata.PluginMetaLoader;
+import org.galliumpowered.plugin.metadata.PluginMetadata;
+import org.galliumpowered.plugin.metadata.PluginMetadataLoader;
 import org.galliumpowered.plugin.loader.PluginLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +25,7 @@ public class PluginManager {
 
     public Optional<PluginContainer> getPluginById(String id) {
         return plugins.stream()
-                .filter(container -> container.getMeta().getId().equalsIgnoreCase(id))
+                .filter(container -> container.getMetadata().getId().equalsIgnoreCase(id))
                 .findFirst();
     }
 
@@ -41,10 +41,10 @@ public class PluginManager {
         // Load internal plugin
         log.info("Loading plugin Gallium");
         GalliumPlugin internalPlugin = new GalliumPlugin();
-        PluginMeta internalPluginMeta = PluginMetaLoader.getPluginMetaFromAnnotation(internalPlugin.getClass());
+        PluginMetadata internalPluginMetadata = PluginMetadataLoader.getPluginMetaFromAnnotation(internalPlugin.getClass());
         PluginContainer internalPluginContainer = new PluginContainer();
 
-        internalPluginContainer.setMeta(internalPluginMeta);
+        internalPluginContainer.setMetadata(internalPluginMetadata);
 
         Injector internalPluginInjector = Guice.createInjector(new InjectPluginModule(internalPluginContainer));
         internalPluginContainer.setInjector(internalPluginInjector);
@@ -83,7 +83,7 @@ public class PluginManager {
     @SuppressWarnings("unchecked")
     public void unloadPlugins() {
         for (PluginContainer plugin : (ArrayList<PluginContainer>) plugins.clone()) {
-            log.info("Unloading plugin {}", plugin.getMeta().getId());
+            log.info("Unloading plugin {}", plugin.getMetadata().getId());
             javaPluginLoader.unloadContainer(plugin);
         }
     }

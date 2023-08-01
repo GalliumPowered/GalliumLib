@@ -15,8 +15,8 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class PluginMetaLoader {
-    public static Optional<PluginMeta> getPluginMetadata(File file) throws IOException, ClassNotFoundException {
+public class PluginMetadataLoader {
+    public static Optional<PluginMetadata> getPluginMetadata(File file) throws IOException, ClassNotFoundException {
         ZipFile zip = new ZipFile(file);
         if (zip.getEntry("Canary.inf") != null) {
             throw new BadPluginException("CanaryMod plugins are not natively supported. Please remove " + file.getName());
@@ -27,9 +27,9 @@ public class PluginMetaLoader {
         } else if (zip.getEntry("mcmod.info") != null) {
             throw new BadPluginException("Sponge plugins and Forge mods are not natively supported. Please remove " + file.getName());
         } else {
-            PluginMeta meta = null;
+            PluginMetadata meta = null;
             String mainClass;
-            URLClassLoader child = new URLClassLoader(new URL[]{file.toURI().toURL()}, PluginMetaLoader.class.getClassLoader());
+            URLClassLoader child = new URLClassLoader(new URL[]{file.toURI().toURL()}, PluginMetadataLoader.class.getClassLoader());
 
             // Get metadata from JSON
             if (zip.getEntry("plugin.json") != null) {
@@ -75,7 +75,7 @@ public class PluginMetaLoader {
         }
     }
 
-    public static PluginMeta getPluginMetaFromAnnotation(Class<?> javaPluginClass) {
+    public static PluginMetadata getPluginMetaFromAnnotation(Class<?> javaPluginClass) {
         Plugin plugin = javaPluginClass.getAnnotation(Plugin.class);
         return new DefaultPluginMeta(plugin.name(), plugin.id().toLowerCase(), plugin.description(), plugin.authors(), plugin.version(), javaPluginClass.getName());
     }

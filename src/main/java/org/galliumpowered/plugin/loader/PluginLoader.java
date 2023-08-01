@@ -8,8 +8,8 @@ import org.galliumpowered.exceptions.PluginLoadFailException;
 import org.galliumpowered.plugin.PluginContainer;
 import org.galliumpowered.plugin.PluginLifecycleState;
 import org.galliumpowered.plugin.inject.modules.InjectPluginModule;
-import org.galliumpowered.plugin.metadata.PluginMeta;
-import org.galliumpowered.plugin.metadata.PluginMetaLoader;
+import org.galliumpowered.plugin.metadata.PluginMetadata;
+import org.galliumpowered.plugin.metadata.PluginMetadataLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,9 +31,9 @@ public class PluginLoader {
     public Optional<PluginContainer> loadPlugin(@Nonnull File jar) {
         try {
             PluginClassLoader pluginClassLoader = new PluginClassLoader(jar.toPath());
-            Optional<PluginMeta> metaOptional = PluginMetaLoader.getPluginMetadata(jar);
+            Optional<PluginMetadata> metaOptional = PluginMetadataLoader.getPluginMetadata(jar);
             if (metaOptional.isPresent()) {
-                PluginMeta meta = metaOptional.get();
+                PluginMetadata meta = metaOptional.get();
 
                 if (meta.getId().equals("gallium") || meta.getId().equals("minecraft")) {
                     throw new BadPluginException("Plugin IDs 'gallium' and 'minecraft' are reserved!");
@@ -44,14 +44,14 @@ public class PluginLoader {
                 }
 
                 for (PluginContainer container : Gallium.getPluginManager().getLoadedPlugins()) {
-                    if (container.getMeta().getId().equals(meta.getId())) {
+                    if (container.getMetadata().getId().equals(meta.getId())) {
                         throw new PluginLoadFailException("Plugin ID " + meta.getId() + " is already in use!");
                     }
                 }
 
                 PluginContainer container = new PluginContainer();
 
-                container.setMeta(meta);
+                container.setMetadata(meta);
 
                 Injector injector = Guice.createInjector(new InjectPluginModule(container));
                 container.setInjector(injector);
@@ -76,7 +76,7 @@ public class PluginLoader {
      */
     public void unloadContainer(@Nonnull PluginContainer container) {
         container.setLifecycleState(PluginLifecycleState.DISABLED);
-        Gallium.getCommandManager().unregisterAllPluginCommands(container.getMeta());
+        Gallium.getCommandManager().unregisterAllPluginCommands(container.getMetadata());
         Gallium.getPluginManager().removePlugin(container);
     }
 }

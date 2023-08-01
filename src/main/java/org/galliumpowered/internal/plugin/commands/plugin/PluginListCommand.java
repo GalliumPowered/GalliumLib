@@ -7,7 +7,7 @@ import org.galliumpowered.Gallium;
 import org.galliumpowered.chat.Colors;
 import org.galliumpowered.annotation.Command;
 import org.galliumpowered.command.CommandContext;
-import org.galliumpowered.plugin.metadata.PluginMeta;
+import org.galliumpowered.plugin.metadata.PluginMetadata;
 
 public class PluginListCommand {
     @Command(aliases = {"pluginlist", "plugins"}, description = "Show all plugins loaded on the server", neededPerms = "PLUGINS")
@@ -15,7 +15,7 @@ public class PluginListCommand {
         ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "--- Plugin list ---"));
 //        ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "--------------------"));
         Gallium.getPluginManager().getLoadedPlugins().forEach(plugin -> {
-            PluginMeta meta = plugin.getMeta();
+            PluginMetadata meta = plugin.getMetadata();
             ctx.getCaller().sendMessage(
                     Component.text(Colors.WHITE + meta.getName() + " (" + meta.getId() + ")")
                             .hoverEvent(HoverEvent.showText(

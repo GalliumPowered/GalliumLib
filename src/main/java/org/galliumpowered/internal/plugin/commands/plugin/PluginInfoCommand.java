@@ -14,12 +14,12 @@ public class PluginInfoCommand {
         ctx.getArgument("plugin").ifPresentOrElse(pluginId -> {
             Gallium.getPluginManager().getPluginById(pluginId).ifPresentOrElse(container -> {
                 ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "----- Plugin info -----"));
-                ctx.getCaller().sendMessage(Component.text("Name: " + container.getMeta().getName()));
-                ctx.getCaller().sendMessage(Component.text("ID: " + container.getMeta().getId()));
-                ctx.getCaller().sendMessage(Component.text("Description: " + container.getMeta().getDescription()));
-                ctx.getCaller().sendMessage(Component.text("Version: " + container.getMeta().getVersion()));
-                ctx.getCaller().sendMessage(Component.text("Authors: " + String.join(", ", container.getMeta().getAuthors())));
-                ctx.getCaller().sendMessage(Component.text("Main Class: " + container.getMeta().getMainClass()));
+                ctx.getCaller().sendMessage(Component.text("Name: " + container.getMetadata().getName()));
+                ctx.getCaller().sendMessage(Component.text("ID: " + container.getMetadata().getId()));
+                ctx.getCaller().sendMessage(Component.text("Description: " + container.getMetadata().getDescription()));
+                ctx.getCaller().sendMessage(Component.text("Version: " + container.getMetadata().getVersion()));
+                ctx.getCaller().sendMessage(Component.text("Authors: " + String.join(", ", container.getMetadata().getAuthors())));
+                ctx.getCaller().sendMessage(Component.text("Main Class: " + container.getMetadata().getMainClass()));
                 ctx.getCaller().sendMessage(Component.text(Colors.GREEN + "-----------------------"));
             }, () -> {
                 ctx.getCaller().sendMessage(Component.text(Colors.LIGHT_RED + "Could not find that plugin!"));

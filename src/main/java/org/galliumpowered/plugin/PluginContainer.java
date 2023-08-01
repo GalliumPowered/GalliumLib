@@ -3,8 +3,7 @@ package org.galliumpowered.plugin;
 import com.google.inject.Injector;
 import org.galliumpowered.annotation.PluginLifecycleListener;
 import org.galliumpowered.exceptions.PluginException;
-import org.galliumpowered.exceptions.PluginLoadFailException;
-import org.galliumpowered.plugin.metadata.PluginMeta;
+import org.galliumpowered.plugin.metadata.PluginMetadata;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +12,7 @@ import java.util.Arrays;
 public class PluginContainer {
 
     private Object instance;
-    private PluginMeta meta;
+    private PluginMetadata metadata;
     private Injector injector;
     private PluginLifecycleState state = PluginLifecycleState.DISABLED;
     private Logger log = LogManager.getLogger("Gallium/PluginContainer");
@@ -28,10 +27,10 @@ public class PluginContainer {
 
     /**
      * Gets the plugin's metadata
-     * @return The plugin's {@link PluginMeta}
+     * @return The plugin's {@link PluginMetadata}
      */
-    public PluginMeta getMeta() {
-        return meta;
+    public PluginMetadata getMetadata() {
+        return metadata;
     }
 
     /**
@@ -52,10 +51,10 @@ public class PluginContainer {
 
     /**
      * Sets the plugin's metadata
-     * @param meta The {@link PluginMeta}
+     * @param metadata The {@link PluginMetadata}
      */
-    public void setMeta(PluginMeta meta) {
-        this.meta = meta;
+    public void setMetadata(PluginMetadata metadata) {
+        this.metadata = metadata;
     }
 
     /**
@@ -80,7 +79,7 @@ public class PluginContainer {
      * @param state The state in which the container will enter
      */
     public void setLifecycleState(PluginLifecycleState state) {
-        log.info("Plugin {} is transitioning to lifecycle state {}", meta.getId(), state);
+        log.info("Plugin {} is transitioning to lifecycle state {}", metadata.getId(), state);
         this.state = state;
         Arrays.stream(getPluginClass().getMethods())
                 .filter(method -> method.isAnnotationPresent(PluginLifecycleListener.class))

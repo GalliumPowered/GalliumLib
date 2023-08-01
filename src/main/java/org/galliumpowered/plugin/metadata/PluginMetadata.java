@@ -1,6 +1,6 @@
 package org.galliumpowered.plugin.metadata;
 
-public interface PluginMeta {
+public interface PluginMetadata {
     /**
      * The name of the plugin
      * @return Plugin name
