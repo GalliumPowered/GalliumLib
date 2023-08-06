@@ -69,4 +69,14 @@ public class TestCommand {
             console.sendMessage("You're the console!");
         });
     }
+
+    @Command(aliases = "test8", description = "Testing player current world")
+    public void test8Command(CommandContext ctx) {
+        ctx.ifPlayer(player -> {
+            player.sendMessage("Current world dimension: " + player.getWorld().getDimension());
+            player.sendMessage("Current world difficulty: " + player.getWorld().getDifficulty());
+        }).ifConsole(console -> {
+            console.sendMessage("You cannot use this command as the console!");
+        });
+    }
 }

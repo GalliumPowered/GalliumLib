@@ -27,9 +27,36 @@ public interface World {
         }
     }
 
+    enum Dimension {
+        OVERWORLD("overworld"),
+        THE_NETHER("the_nether"),
+        THE_END("the_end"),
+        UNKNOWN(null);
+
+        private String path;
+        Dimension(String path) {
+            this.path = path;
+        }
+
+        public static Dimension fromPath(String path) {
+            return switch (path) {
+                case "overworld" -> Dimension.OVERWORLD;
+                case "the_nether" -> Dimension.THE_NETHER;
+                case "the_end" -> Dimension.THE_END;
+                default -> Dimension.UNKNOWN;
+            };
+        }
+    }
+
     /**
-     * Get the world name
-     * @return the world name
+     * Get the world dimension, example: OVERWORLD
+     * @return World dimension
      */
-    String getName();
+    Dimension getDimension();
+
+    /**
+     * Get the world difficulty
+     * @return World difficulty
+     */
+    Difficulty getDifficulty();
 }

@@ -7,6 +7,7 @@ import org.galliumpowered.chat.Colors;
 import org.galliumpowered.command.CommandCaller;
 import org.galliumpowered.permission.Group;
 import org.galliumpowered.permission.PermissionOwner;
+import org.galliumpowered.world.World;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -128,4 +129,10 @@ public interface Player extends Entity, CommandCaller {
      * @param gamemode The {@link Gamemode}
      */
     void setGamemode(Gamemode gamemode);
+
+    /**
+     * Gets the player's current {@link World}
+     * @return Player world
+     */
+    World getWorld();
 }
