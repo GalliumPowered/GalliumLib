@@ -1,13 +1,7 @@
 package org.galliumpowered.plugin;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import org.galliumpowered.Gallium;
 import org.galliumpowered.exceptions.PluginLoadFailException;
-import org.galliumpowered.internal.plugin.GalliumPlugin;
-import org.galliumpowered.plugin.inject.modules.InjectPluginModule;
-import org.galliumpowered.plugin.metadata.PluginMetadata;
-import org.galliumpowered.plugin.metadata.PluginMetadataLoader;
 import org.galliumpowered.plugin.loader.PluginLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,22 +32,7 @@ public class PluginManager {
     }
 
     public void loadPlugins() throws IOException {
-        // Load internal plugin
-        log.info("Loading plugin Gallium");
-        GalliumPlugin internalPlugin = new GalliumPlugin();
-        PluginMetadata internalPluginMetadata = PluginMetadataLoader.getPluginMetaFromAnnotation(internalPlugin.getClass());
-        PluginContainer internalPluginContainer = new PluginContainer();
-
-        internalPluginContainer.setMetadata(internalPluginMetadata);
-
-        Injector internalPluginInjector = Guice.createInjector(new InjectPluginModule(internalPluginContainer));
-        internalPluginContainer.setInjector(internalPluginInjector);
-        internalPluginContainer.setInstance(internalPluginInjector.getInstance(internalPlugin.getClass()));
-
-        internalPluginContainer.setLifecycleState(PluginLifecycleState.ENABLED);
-
-        addPlugin(internalPluginContainer);
-
+        Gallium.getBridge().loadInternalPlugin();
         // Load plugins in the plugins directory
         File pluginsDir = Gallium.getPluginsDirectory();
         if (!pluginsDir.exists()) {

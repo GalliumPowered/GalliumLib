@@ -56,12 +56,12 @@ public class CommandManager {
 
     private void internalRegister(String alias, MCommand cmd, PluginMetadata meta) {
         if (cmd.getCommand().args().length == 0) {
-            Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms());
-            Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
+            Gallium.getBridge().registerCommand(alias, cmd.getCommand().neededPerms());
+            Gallium.getBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms());
         } else {
             // FIXME: Multiple args
-            Gallium.getNMSBridge().registerCommand(alias, cmd.getCommand().neededPerms(), cmd.getCommand().args());
-            Gallium.getNMSBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms(), cmd.getCommand().args());
+            Gallium.getBridge().registerCommand(alias, cmd.getCommand().neededPerms(), cmd.getCommand().args());
+            Gallium.getBridge().registerCommand(meta.getId() + ":" + alias, cmd.getCommand().neededPerms(), cmd.getCommand().args());
         }
     }
 

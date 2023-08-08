@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * For bridging NMS to lib
  */
-public interface NMSBridge {
+public interface Bridge {
     void registerCommand(String alias, String permission);
 
     void registerCommand(String alias, String permission, Args[] args);
@@ -16,4 +16,6 @@ public interface NMSBridge {
     Optional<Player> getPlayerByName(String name);
 
     String getServerVersion();
+
+    void loadInternalPlugin();
 }

@@ -1,6 +1,6 @@
 package org.galliumpowered;
 
-import org.galliumpowered.bridge.NMSBridge;
+import org.galliumpowered.bridge.Bridge;
 import org.galliumpowered.command.CommandManager;
 import org.galliumpowered.database.Database;
 import org.galliumpowered.event.EventDispatcher;
@@ -24,7 +24,7 @@ public abstract class Gallium {
     protected PluginManager pluginManager;
     protected EventManager eventManager;
     protected EventDispatcher eventDispatcher;
-    protected NMSBridge nmsBridge;
+    protected Bridge bridge;
     protected File galliumConfig;
     protected File serverProperties;
     protected File opListFile;
@@ -106,8 +106,8 @@ public abstract class Gallium {
      * Get the NMS bridge
      * @return NMS bridge
      */
-    public static NMSBridge getNMSBridge() {
-        return instance.nmsBridge;
+    public static Bridge getBridge() {
+        return instance.bridge;
     }
 
     public static File getConfig() {
