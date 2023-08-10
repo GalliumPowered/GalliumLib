@@ -1,5 +1,5 @@
 # GalliumLib
-> Still in development! Subject to major changes
+> GalliumLib has moved! It's now in [Gallium](https://github.com/GalliumPowered/Gallium)
 
 GalliumLib is a Minecraft server API used by [Gallium](https://github.com/GalliumPowered/Gallium)
 
